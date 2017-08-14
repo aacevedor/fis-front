@@ -1,14 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Platform } from 'ionic-angular';
+
+import { Nav } from 'ionic-angular';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
+import { HelloIonicPage } from '../pages/detail/detail';
+import { ProfilePage } from '../pages/profile/profile';
+import { ProfesionalsPage } from '../pages/profesionals/profesionals';
+
+
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
   rootPage:any = HomePage;
+  pages: Array<{ title: string, component: any }>;
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -17,6 +29,20 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-  }
-}
 
+
+    this.pages = [
+      { title: 'Detalles', component: HelloIonicPage },
+      { title: 'Perfil', component: ProfilePage },
+      { title: 'Profesionals', component: ProfesionalsPage },
+
+  ];
+  }
+
+  openPage(page) {
+     // Reset the content nav to have just this page
+     // we wouldn't want the back button to show in this scenario
+     this.nav.setRoot(page.component);
+
+   }
+}
