@@ -32,11 +32,10 @@ export class MyApp {
 
 
     this.pages = [
-      { title: 'Detalles', component: HelloIonicPage },
-      { title: 'Perfil', component: ProfilePage },
-      { title: 'Profesionals', component: ProfesionalsPage },
-
-  ];
+        { title: 'Detalles', component: HelloIonicPage },
+        { title: 'Perfil', component: ProfilePage },
+        { title: 'Profesionals', component: ProfesionalsPage },
+      ];
   }
 
   openPage(page) {
