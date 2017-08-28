@@ -6,6 +6,8 @@ import { Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+
+import { LoginPage } from '../pages/index';
 import { HomePage } from '../pages/home/home';
 import { HelloIonicPage } from '../pages/detail/detail';
 import { ProfilePage } from '../pages/profile/profile';
@@ -18,7 +20,7 @@ import { ProfesionalsPage } from '../pages/profesionals/profesionals';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = HomePage;
+  rootPage:any = LoginPage;
   pages: Array<{ title: string, component: any }>;
 
 
@@ -32,6 +34,7 @@ export class MyApp {
 
 
     this.pages = [
+        { title: 'Home', component: HomePage },
         { title: 'Detalles', component: HelloIonicPage },
         { title: 'Perfil', component: ProfilePage },
         { title: 'Profesionals', component: ProfesionalsPage },

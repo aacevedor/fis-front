@@ -3,16 +3,17 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { HelloIonicPage } from '../pages/detail/detail';
-import { ProfilePage } from '../pages/profile/profile';
-import { ProfesionalsPage } from '../pages/profesionals/profesionals';
+import { LoginPage } from '../pages/index'
 
 
-import { HttpModule } from '@angular/http';
+import { HomePage } from '../pages/index';
+import { HelloIonicPage } from '../pages/index';
+import { ProfilePage } from '../pages/index';
+import { ProfesionalsPage } from '../pages/index';
+
 
 import { ProfileService } from '../app/app.services';
 import { ProfesionalsService } from '../app/app.services';
@@ -20,6 +21,7 @@ import { ProfesionalsService } from '../app/app.services';
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
     HomePage,
     HelloIonicPage,
     ProfilePage,
@@ -33,6 +35,7 @@ import { ProfesionalsService } from '../app/app.services';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
     HomePage,
     HelloIonicPage,
     ProfilePage,
