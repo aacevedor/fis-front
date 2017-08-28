@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
+import { FormsModule }   from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/index'
@@ -14,9 +15,10 @@ import { HelloIonicPage } from '../pages/index';
 import { ProfilePage } from '../pages/index';
 import { ProfesionalsPage } from '../pages/index';
 
-
+import { ValidationService } from '../services/index';
 import { ProfileService } from '../app/app.services';
 import { ProfesionalsService } from '../app/app.services';
+
 
 @NgModule({
   declarations: [
@@ -25,12 +27,13 @@ import { ProfesionalsService } from '../app/app.services';
     HomePage,
     HelloIonicPage,
     ProfilePage,
-    ProfesionalsPage
+    ProfesionalsPage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+    FormsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,7 +42,7 @@ import { ProfesionalsService } from '../app/app.services';
     HomePage,
     HelloIonicPage,
     ProfilePage,
-    ProfesionalsPage
+    ProfesionalsPage,
   ],
   providers: [
     StatusBar,
