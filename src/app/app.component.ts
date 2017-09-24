@@ -20,7 +20,7 @@ import { ProfesionalsPage } from '../pages/profesionals/profesionals';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = LoginPage;
+  rootPage:any = HomePage;
   pages: Array<{ title: string, component: any }>;
 
 
@@ -34,7 +34,7 @@ export class MyApp {
 
 
     this.pages = [
-        { title: 'Home', component: HomePage },
+        { title: 'Inicio', component: HomePage },
         { title: 'Detalles', component: HelloIonicPage },
         { title: 'Perfil', component: ProfilePage },
         { title: 'Profesionals', component: ProfesionalsPage },

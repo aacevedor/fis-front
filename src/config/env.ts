@@ -1,4 +1,4 @@
 export const ENV = {
-  APP_BACKEND : 'http://fia.local',
+  APP_BACKEND : 'http://localhost:8000',
   ENVIROMENT: 'dev',
 }

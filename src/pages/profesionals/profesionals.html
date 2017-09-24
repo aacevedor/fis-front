@@ -10,27 +10,36 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <ion-card *ngIf="profesionalProfile">
+              <img width="280" height="300" src="{{profesionalProfile.image}}"/>
+              <ion-card-content>
+              <ion-card-title>
+                {{ profesionalProfile.first_name }} {{ profesionalProfile.last_name }}
+              </ion-card-title>
+              <p>
+                {{ profesionalProfile.description }}
+              </p>
+            </ion-card-content>
+            <ion-item>
+              <ion-icon name='musical-notes' item-start style="color: #d03e84"></ion-icon>
+              Genero:
+              <ion-badge item-end>{{profesionalProfile.gender}}</ion-badge>
+            </ion-item>
+            <ion-item>
+              <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
+              Telefono:
+              <ion-badge item-end>{{profesionalProfile.phone}}</ion-badge>
+            </ion-item>
+          </ion-card>
+      </ion-col>
 
-  <ion-card *ngFor="let profesional of profesionals">
-    <img src="assets/img/bjork-live.jpg"/>
-    <ion-card-content>
-      <ion-card-title>
-        {{ profesional.name }}
-      </ion-card-title>
-      <p>
-        {{ profesional.email }}
-      </p>
-    </ion-card-content>
-    <ion-item>
-      <ion-icon name='musical-notes' item-start style="color: #d03e84"></ion-icon>
-      Albums
-      <ion-badge item-end>9</ion-badge>
-    </ion-item>
-    <ion-item>
-      <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
-      Followers
-      <ion-badge item-end>260k</ion-badge>
-    </ion-item>
-  </ion-card>
+
+    </ion-row>
+
+  </ion-grid>
+
 
 </ion-content>

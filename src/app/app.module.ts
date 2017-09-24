@@ -15,9 +15,10 @@ import { HelloIonicPage } from '../pages/index';
 import { ProfilePage } from '../pages/index';
 import { ProfesionalsPage } from '../pages/index';
 
-import { ValidationService } from '../services/index';
 import { ProfileService } from '../app/app.services';
 import { ProfesionalsService } from '../app/app.services';
+import { ApiService } from '../api/api.services';
+
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ProfesionalsService } from '../app/app.services';
     SplashScreen,
     ProfileService,
     ProfesionalsService,
+    ApiService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
