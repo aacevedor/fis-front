@@ -13,8 +13,8 @@
     <ion-row>
       <ion-col col-12>
         <ion-card *ngIf="profesional">
-              <img width="280" height="300" src="{{profesional.image}}"/>
-              <ion-card-content>
+            <img width="280" height="300" src="{{profesional.image}}"/>
+            <ion-card-content>
               <ion-card-title>
                 {{ profesional.first_name }} {{ profesional.last_name }}
               </ion-card-title>
@@ -34,17 +34,11 @@
             </ion-item>
           </ion-card>
       </ion-col>
-      <ion-col col-12>
-        <ion-content>
-              <div id="map" data-tap-disabled="true"></div>
-        </ion-content>
-      </ion-col>
-
-
 
     </ion-row>
 
   </ion-grid>
 
+<div id="map" data-tap-disabled="true" style="height:300px" ></div>
 
 </ion-content>

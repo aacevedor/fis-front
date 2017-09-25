@@ -13,7 +13,7 @@ export class Authorization {
   refresh_token: string;
 }
 
-export class Profesional {
+export class User {
     id: number;
     name: string;
     email: string;
@@ -26,7 +26,7 @@ export class Profesional {
     gender_facebook: string;
 }
 
-export class ProfesionalProfile {
+export class Profesional {
   id: string;
   user_id: number;
   first_name: string;
@@ -36,7 +36,7 @@ export class ProfesionalProfile {
   description: string
   profession: string;
   address: string;
-  geolocalization: Array<any>;
+  geolocalization: string;
   image: string;
   created_at: string;
   updated_at: string;

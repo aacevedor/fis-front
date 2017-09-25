@@ -13,7 +13,7 @@ import {
  MarkerOptions,
  Marker
 } from '@ionic-native/google-maps';
-import { Profesional, ProfesionalProfile } from '../../class/profile';
+import { Profesional } from '../../class/profile';
 import { ApiService } from '../../api/api.services';
 
 
@@ -25,8 +25,8 @@ export class ProfesionalsPage implements OnInit{
   map: GoogleMap;
   mapElement: HTMLElement;
   profesional: Profesional;
-  profesionalProfile: ProfesionalProfile;
   ready: boolean;
+  coordinates: Array<any>;
   constructor(public navCtrl: NavController,
               private api: ApiService,
               private navParams: NavParams,
@@ -35,20 +35,22 @@ export class ProfesionalsPage implements OnInit{
 
   ngOnInit(){
       this.profesional = this.navParams.get('profesional');
+      this.coordinates = this.profesional.geolocalization.split(',')
+      console.log('localization', this.coordinates[0].replace('[','') );
       //this.getProfesionalDetail();
       this.loadMap();
   }
 
 
 
-  getProfesionalDetail(): void {
-    this.api.getProfesional(this.profesional.id)
+  /*getProfesionalDetail(): void {
+    this.api.getProfesional(this.profesional)
     .subscribe(
       ProfesionalProfile => this.profesionalProfile = ProfesionalProfile,
       err => { this.showAlert(err); },
       () => console.log( this.profesionalProfile ),
     );
-  }
+  }*/
 
   showAlert(err): void {
     let alert = this.alert.create(
@@ -74,8 +76,8 @@ export class ProfesionalsPage implements OnInit{
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: 43.0741904,
-          lng: -89.3809802
+          lat: this.coordinates[0].replace('[',''),
+          lng: this.coordinates[1].replace(']','')
         },
         zoom: 18,
         tilt:30
@@ -89,12 +91,12 @@ export class ProfesionalsPage implements OnInit{
             console.log('Map is ready');
 
             this.map.addMarker({
-                title: 'Ionic',
+                title: this.profesional.first_name,
                 icon: 'blue',
                 animation: 'DROP',
                 position: {
-                  lat: 43.0741904,
-                  lng: -89.3809802
+                  lat: this.coordinates[0].replace('[',''),
+                  lng: this.coordinates[1].replace(']','')
                 }
               })
               .then( marker => {
