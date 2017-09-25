@@ -8,7 +8,15 @@ import { FormsModule }   from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/index'
-
+import {
+ GoogleMaps,
+ GoogleMap,
+ GoogleMapsEvent,
+ GoogleMapOptions,
+ CameraPosition,
+ MarkerOptions,
+ Marker
+} from '@ionic-native/google-maps';
 
 import { HomePage } from '../pages/index';
 import { HelloIonicPage } from '../pages/index';
@@ -51,6 +59,7 @@ import { ApiService } from '../api/api.services';
     ProfileService,
     ProfesionalsService,
     ApiService,
+    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

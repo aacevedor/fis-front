@@ -10,29 +10,43 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <ion-item>
+        <ion-label color="gray"><ion-icon name="locate" color="black"></ion-icon></ion-label>
+        <ion-input placeholder="Que buscas?"></ion-input>
+    </ion-item>
+  </ion-list>
   <ion-card *ngFor="let profesional of profesionals" (click)='profesionalDetail(profesional)'>
-      <img src="assets/img/bjork-live.jpg"/>
-      <ion-card-content>
-        <ion-card-title>
-          {{ profesional.name }}
-        </ion-card-title>
-        <p>
-          {{ profesional.email }}
-        </p>
-      </ion-card-content>
-      <ion-item>
-        <ion-icon name='musical-notes' item-start style="color: #d03e84"></ion-icon>
-        Albums
-        <ion-badge item-end>9</ion-badge>
-      </ion-item>
-      <ion-item>
-        <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
-        Followers
-        <ion-badge item-end>260k</ion-badge>
-      </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-row>
+            <ion-col col-4>
+              <img col-12 src="{{profesional.image}}"/>
+            </ion-col>
+            <ion-col col-8>
+              <ion-item>
+                <ion-col><ion-icon name="star" color="bright"></ion-icon></ion-col>
+                Calificación
+                <ion-badge item-end>9</ion-badge>
+              </ion-item>
+              <ion-item>
+                <ion-col><ion-icon name="heart" color="danger"></ion-icon></ion-col>
+                Satisfechos
+                <ion-badge item-end>260k</ion-badge>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+          <ion-card-content>
+            <ion-card-title>
+              {{ profesional.first_name }} {{ profesional.last_name }}
+            </ion-card-title>
+            <p>
+              {{ profesional.profession}}
+            </p>
+          </ion-card-content>
+        </ion-row>
+      </ion-grid>
     </ion-card>
 </ion-content>
