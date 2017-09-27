@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/index'
@@ -22,12 +23,17 @@ import { HomePage } from '../pages/index';
 import { HelloIonicPage } from '../pages/index';
 import { ProfilePage } from '../pages/index';
 import { ProfesionalsPage } from '../pages/index';
+import { RegisterPage } from '../pages/register/register';
 
 import { ProfileService } from '../app/app.services';
 import { ProfesionalsService } from '../app/app.services';
 import { ApiService } from '../api/api.services';
 
-
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': 'cbfb714c'
+  }
+};
 
 @NgModule({
   declarations: [
@@ -37,10 +43,12 @@ import { ApiService } from '../api/api.services';
     HelloIonicPage,
     ProfilePage,
     ProfesionalsPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    CloudModule.forRoot(cloudSettings),
     HttpModule,
     FormsModule,
   ],
@@ -52,6 +60,7 @@ import { ApiService } from '../api/api.services';
     HelloIonicPage,
     ProfilePage,
     ProfesionalsPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,

@@ -5,12 +5,12 @@ import {
     Input,
   } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
+import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
 
 import { ValidationService } from '../../services/index';
 import { Authorization } from '../../class/profile';
 import { HomePage } from '../index';
-
+import { RegisterPage } from '../register/register';
 import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 //import { PROFILE } from '../../mocks/mock-profile';
 
@@ -22,12 +22,15 @@ export class LoginPage implements OnInit, AfterContentInit{
 
 
   public authorization: Authorization;
-  user: FormGroup;
+  form: FormGroup;
 
-  constructor(private formBuilder:FormBuilder,  public navCtrl: NavController ) {}
+  constructor(private formBuilder:FormBuilder,
+              public navCtrl: NavController,
+              public auth: Auth,
+              public user: User ) {}
 
   ngOnInit():void{
-    this.user = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       email:['', [Validators.email, Validators.required]],
       password:['',Validators.required],
     })
@@ -37,10 +40,19 @@ export class LoginPage implements OnInit, AfterContentInit{
 
   }
 
-  onSubmit() {
-   console.log(this.user.value);  // { first: '', last: '' }
-   this.navCtrl.push(HomePage);
+  register(): void{
+    this.navCtrl.push(RegisterPage);
   }
+
+  onSubmit() {
+   this.auth.login('basic',this.form.value)
+     .then(
+        () => {
+          console.log(this.user);
+          this.navCtrl.push(HomePage);
+        }
+     );
+   }
 
 }
 

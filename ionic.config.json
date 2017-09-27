@@ -1,6 +1,6 @@
 {
   "name": "fia",
-  "app_id": "",
+  "app_id": "cbfb714c",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

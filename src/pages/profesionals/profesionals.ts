@@ -9,9 +9,9 @@ import {
  GoogleMap,
  GoogleMapsEvent,
  GoogleMapOptions,
- CameraPosition,
+ //CameraPosition,
  MarkerOptions,
- Marker
+ //Marker
 } from '@ionic-native/google-maps';
 import { Profesional } from '../../class/profile';
 import { ApiService } from '../../api/api.services';
