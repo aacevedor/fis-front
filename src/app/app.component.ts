@@ -9,6 +9,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/index';
 import { HomePage } from '../pages/home/home';
+import { LogoutPage } from '../pages/logout/logout';
+
 import { HelloIonicPage } from '../pages/detail/detail';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfesionalsPage } from '../pages/profesionals/profesionals';
@@ -21,7 +23,7 @@ import { RegisterPage } from '../pages/register/register';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = LoginPage;
+  rootPage:any = HomePage;
   pages: Array<{ title: string, component: any }>;
 
 
@@ -36,10 +38,9 @@ export class MyApp {
 
     this.pages = [
         { title: 'Inicio', component: HomePage },
-        { title: 'Registro',component: RegisterPage },
-        { title: 'Detalles', component: HelloIonicPage },
         { title: 'Perfil', component: ProfilePage },
-        { title: 'Profesionals', component: ProfesionalsPage },
+        { title: 'Logout', component: LogoutPage },
+
       ];
   }
 

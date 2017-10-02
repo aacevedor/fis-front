@@ -24,6 +24,7 @@ import { HelloIonicPage } from '../pages/index';
 import { ProfilePage } from '../pages/index';
 import { ProfesionalsPage } from '../pages/index';
 import { RegisterPage } from '../pages/register/register';
+import { LogoutPage } from '../pages/logout/logout';
 
 import { ProfileService } from '../app/app.services';
 import { ProfesionalsService } from '../app/app.services';
@@ -43,7 +44,8 @@ const cloudSettings: CloudSettings = {
     HelloIonicPage,
     ProfilePage,
     ProfesionalsPage,
-    RegisterPage
+    RegisterPage,
+    LogoutPage,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ const cloudSettings: CloudSettings = {
     HelloIonicPage,
     ProfilePage,
     ProfesionalsPage,
-    RegisterPage
+    RegisterPage,
+    LogoutPage
   ],
   providers: [
     StatusBar,

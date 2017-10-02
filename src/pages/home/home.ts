@@ -4,8 +4,13 @@ import { Component,
 import { NavController,
          NavParams
        } from 'ionic-angular';
+import { Auth,
+         User,
+         UserDetails,
+         IDetailedError } from '@ionic/cloud-angular';
 import { ApiService } from '../../api/api.services';
 import { Profesional } from '../../class/profile';
+import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
 @Component({
   selector: 'page-home',
@@ -18,12 +23,19 @@ export class HomePage implements OnInit{
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
+              public user: User,
+              public auth: Auth,
   ) {}
 
 
   ngOnInit(){
-    this.pageTitle = 'Inicio';
 
+    if ( !this.auth.isAuthenticated() ) {
+      this.navCtrl.push(LoginPage);
+    }
+    
+
+    this.pageTitle = 'Inicio';
     this.getProfesionals();
   }
 

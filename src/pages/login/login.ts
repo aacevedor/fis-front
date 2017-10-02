@@ -4,7 +4,7 @@ import {
     AfterContentInit,
     Input,
   } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController , NavParams} from 'ionic-angular';
 import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
 
 import { ValidationService } from '../../services/index';
@@ -23,13 +23,23 @@ export class LoginPage implements OnInit, AfterContentInit{
 
   public authorization: Authorization;
   form: FormGroup;
-
+  logout: boolean;
   constructor(private formBuilder:FormBuilder,
               public navCtrl: NavController,
+              public navParams: NavParams,
               public auth: Auth,
               public user: User ) {}
 
   ngOnInit():void{
+
+    if ( this.navParams.get('logout') ) {
+      alert('Sesion cerrada correctamente');
+    }
+
+    if ( this.auth.isAuthenticated() ) {
+      this.navCtrl.push(HomePage);
+    }
+
     this.form = this.formBuilder.group({
       email:['', [Validators.email, Validators.required]],
       password:['',Validators.required],
