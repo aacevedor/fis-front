@@ -27,6 +27,7 @@
         "@ionic/cloud-angular": "^0.12.0",
         "@ionic/storage": "2.0.1",
         "cordova-android": "^6.2.3",
+        "cordova-android-play-services-gradle-release": "^1.1.1",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-googlemaps": "https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps",
@@ -36,6 +37,7 @@
         "ionic-angular": "3.6.0",
         "ionic-plugin-keyboard": "^2.2.1",
         "ionicons": "3.0.0",
+        "phonegap-plugin-push": "^1.10.5",
         "rxjs": "5.4.0",
         "sw-toolbox": "3.6.0",
         "zone.js": "0.8.12"
@@ -56,6 +58,12 @@
             "ionic-plugin-keyboard": {},
             "cordova-plugin-googlemaps": {
                 "API_KEY_FOR_ANDROID": "AIzaSyDhs0rBNQQCCcdAUHbFW3fTadtMUiAc5JE"
+            },
+            "cordova-android-play-services-gradle-release": {
+                "PLAY_SERVICES_VERSION": "11.+"
+            },
+            "phonegap-plugin-push": {
+                "SENDER_ID": "658032209771"
             }
         },
         "platforms": [

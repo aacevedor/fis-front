@@ -33,6 +33,14 @@ import { ApiService } from '../api/api.services';
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': 'cbfb714c'
+  },
+  'push': {
+    'sender_id': '658032209771',
+    'pluginConfig': {
+      'android': {
+        'iconColor': '#343434'
+      }
+    }
   }
 };
 
