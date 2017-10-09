@@ -9,9 +9,11 @@ import { Auth,
          UserDetails,
          IDetailedError } from '@ionic/cloud-angular';
 import { ApiService } from '../../api/api.services';
-import { Profesional } from '../../class/profile';
+import { Profesional, Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
+import { detailPage } from '../index';
+
 @Component({
   selector: 'page-home',
    templateUrl: 'home.html'
@@ -19,6 +21,7 @@ import { ProfesionalsPage } from '../index';
 export class HomePage implements OnInit{
   pageTitle: string;
   profesionals : Profesional[];
+  services : Service[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -33,10 +36,21 @@ export class HomePage implements OnInit{
     if ( !this.auth.isAuthenticated() ) {
       this.navCtrl.push(LoginPage);
     }
-    
+
 
     this.pageTitle = 'Inicio';
     this.getProfesionals();
+    this.getServices();
+  }
+
+
+  getServices(): void {
+    this.api.getServices()
+    .subscribe(
+      services => this.services = services,
+      err => console.log(err),
+      () => console.log(this.services)
+    )
   }
 
   getProfesionals(): void {
@@ -52,5 +66,8 @@ export class HomePage implements OnInit{
      this.navCtrl.push(ProfesionalsPage, { 'profesional': profesional });
   }
 
+  serviceDetail( service: Service ): void {
+     this.navCtrl.push(detailPage, { 'service': service });
+  }
 
 }

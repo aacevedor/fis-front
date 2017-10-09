@@ -60,8 +60,11 @@ export class LoginPage implements OnInit, AfterContentInit{
         () => {
           console.log(this.user);
           this.navCtrl.push(HomePage);
-        }
-     );
+        },
+     (err: IDetailedError<any>) => {
+        // Do something with err such as
+        alert('usuario y contraseña no coinciden');
+      });
    }
 
 }

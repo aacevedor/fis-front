@@ -20,9 +20,10 @@ import {
 } from '@ionic-native/google-maps';
 
 import { HomePage } from '../pages/index';
-import { HelloIonicPage } from '../pages/index';
+import { detailPage } from '../pages/index';
 import { ProfilePage } from '../pages/index';
 import { ProfesionalsPage } from '../pages/index';
+import { ProfesionalsListPage, ServicesListPage } from '../pages/index';
 import { RegisterPage } from '../pages/register/register';
 import { LogoutPage } from '../pages/logout/logout';
 
@@ -49,11 +50,13 @@ const cloudSettings: CloudSettings = {
     MyApp,
     LoginPage,
     HomePage,
-    HelloIonicPage,
+    detailPage,
     ProfilePage,
     ProfesionalsPage,
     RegisterPage,
     LogoutPage,
+    ProfesionalsListPage,
+    ServicesListPage
   ],
   imports: [
     BrowserModule,
@@ -67,11 +70,13 @@ const cloudSettings: CloudSettings = {
     MyApp,
     LoginPage,
     HomePage,
-    HelloIonicPage,
+    detailPage,
     ProfilePage,
     ProfesionalsPage,
     RegisterPage,
-    LogoutPage
+    LogoutPage,
+    ProfesionalsListPage,
+    ServicesListPage
   ],
   providers: [
     StatusBar,

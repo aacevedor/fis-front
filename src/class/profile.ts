@@ -42,3 +42,17 @@ export class Profesional {
   updated_at: string;
   phone: number;
 }
+
+export class Service{
+
+
+    id : number;
+    name: string;
+    services_type_id : number;
+    description: string;
+    user_id: number;
+    price: string;
+    created_at: string;
+    updated_at: string;
+    user : Profesional;
+}

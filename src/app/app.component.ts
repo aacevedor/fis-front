@@ -11,9 +11,11 @@ import { LoginPage } from '../pages/index';
 import { HomePage } from '../pages/home/home';
 import { LogoutPage } from '../pages/logout/logout';
 
-import { HelloIonicPage } from '../pages/detail/detail';
+import { detailPage } from '../pages/detail/detail';
 import { ProfilePage } from '../pages/profile/profile';
 import { ProfesionalsPage } from '../pages/profesionals/profesionals';
+import { ProfesionalsListPage, ServicesListPage } from '../pages/index';
+
 import { RegisterPage } from '../pages/register/register';
 import {
   Push,
@@ -46,7 +48,16 @@ export class MyApp {
 
     this.pages = [
         { title: 'Inicio', component: HomePage },
-        { title: 'Perfil', component: ProfilePage },
+        { title: 'Mi Perfil', component: ProfilePage },
+        { title: 'Servicios', component: ServicesListPage },
+        { title: 'Prestadores', component: ProfesionalsListPage },
+        { title: 'Mi Historico', component: ProfilePage },
+
+        // validar si debe aparecer
+        { title: 'Mi Actividad', component: ProfilePage },
+        { title: 'Mis Servicios', component: ProfilePage },
+        { title: 'Mis Solicitudes', component: ProfilePage },
+
         { title: 'Logout', component: LogoutPage },
 
       ];

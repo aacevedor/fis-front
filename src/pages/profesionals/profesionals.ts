@@ -3,7 +3,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { Platform, AlertController } from 'ionic-angular';
+
 import {
  GoogleMaps,
  GoogleMap,
@@ -31,13 +32,17 @@ export class ProfesionalsPage implements OnInit{
               private api: ApiService,
               private navParams: NavParams,
               private alert: AlertController,
-              private googleMaps: GoogleMaps) {}
+              private googleMaps: GoogleMaps,
+              public platform: Platform) {}
 
   ngOnInit(){
       this.profesional = this.navParams.get('profesional');
       this.coordinates = this.profesional.geolocalization.split(',')
-      console.log('localization', this.coordinates[0].replace('[','') );
       //this.getProfesionalDetail();
+      if( !this.platform.is('cordova')){
+          console.warn( "Para iniciar el plugin de maps, se debe emplear un dispositivo virtual o real" );
+          return;
+      }
       this.loadMap();
   }
 

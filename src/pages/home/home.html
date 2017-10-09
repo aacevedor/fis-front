@@ -16,13 +16,26 @@
         <ion-input placeholder="Que buscas?"></ion-input>
     </ion-item>
   </ion-list>
-  <ion-card *ngFor="let profesional of profesionals" (click)='profesionalDetail(profesional)'>
+
+
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-title>SERVICIOS MAS BUSCADOS</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+
+  <ion-card *ngFor="let service of services" (click)='serviceDetail(service)'>
     <ion-grid>
       <ion-row>
         <ion-col col-12>
           <ion-row>
             <ion-col col-4>
-              <img col-12 src="{{profesional.image}}"/>
+              <img col-12 src="http://lorempixel.com/640/480/?94887"/>
             </ion-col>
             <ion-col col-8>
               <ion-item>
@@ -35,18 +48,71 @@
                 Satisfechos
                 <ion-badge item-end>260k</ion-badge>
               </ion-item>
+              <ion-item>
+                <ion-col><ion-icon name="heart" color="danger"></ion-icon></ion-col>
+                Precio por hora
+                <ion-badge item-end> $ {{ service.price}}</ion-badge>
+              </ion-item>
             </ion-col>
           </ion-row>
         </ion-col>
           <ion-card-content>
             <ion-card-title>
-              {{ profesional.first_name }} {{ profesional.last_name }}
+              {{ service.name }}
             </ion-card-title>
             <p>
-              {{ profesional.profession}}
+              Prestador: {{ service.user.name}}
             </p>
+            <p>
+              Tipo de servicio: {{service.services_type_id}}
+            </p>
+
           </ion-card-content>
         </ion-row>
       </ion-grid>
     </ion-card>
+
+    <ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <ion-title>PROFESIONALES DISPONIBLES</ion-title>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-card *ngFor="let profesional of profesionals" (click)='profesionalDetail(profesional)'>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <ion-row>
+              <ion-col col-4>
+                <img col-12 src="{{profesional.image}}"/>
+              </ion-col>
+              <ion-col col-8>
+                <ion-item>
+                  <ion-col><ion-icon name="star" color="bright"></ion-icon></ion-col>
+                  Calificación
+                  <ion-badge item-end>9</ion-badge>
+                </ion-item>
+                <ion-item>
+                  <ion-col><ion-icon name="heart" color="danger"></ion-icon></ion-col>
+                  Satisfechos
+                  <ion-badge item-end>260k</ion-badge>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+            <ion-card-content>
+              <ion-card-title>
+                {{ profesional.first_name }} {{ profesional.last_name }}
+              </ion-card-title>
+              <p>
+                {{ profesional.profession}}
+              </p>
+            </ion-card-content>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+
 </ion-content>
