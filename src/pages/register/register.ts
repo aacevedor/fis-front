@@ -7,7 +7,7 @@ import { Auth,
   UserDetails,
   IDetailedError } from '@ionic/cloud-angular';
 import { Authorization } from '../../class/profile';
-import { HomePage } from '../index';
+import { HomePage, LoginPage } from '../index';
 import {Validators,
   FormBuilder,
   FormGroup} from '@angular/forms';
@@ -39,7 +39,8 @@ export class RegisterPage {
      let details: UserDetails = this.form.value;
      this.auth.signup(details)
       .then(() => {
-          this.navCtrl.push(HomePage);
+          alert('Tu registro a sido exitoso, por favor inicia sesion'),
+          this.navCtrl.push(LoginPage);
       },
       (err: IDetailedError<string[]>) => {
         for (let e of err.details) {

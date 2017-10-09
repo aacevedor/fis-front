@@ -66,8 +66,13 @@ export class ApiService {
   }
 
   getServicesStatus(id: number) : Observable<any> {
-    return this.http.get( ENV.APP_BACKEND + '/api/services-status' + id )
+    return this.http.get( ENV.APP_BACKEND + '/api/services-status7' + id )
       .map( response => response.json())
+  }
+
+  confirmationProfesional(id: string) : Observable<any> {
+    return this.http.get( ENV.APP_BACKEND + '/api/user/confirmation/' + id )
+      .map (response => response.json())
   }
 
 }

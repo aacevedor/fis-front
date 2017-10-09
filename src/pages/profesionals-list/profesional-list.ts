@@ -12,20 +12,17 @@ import { ApiService } from '../../api/api.services';
 import { Profesional, Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
-import { detailPage, ProfilePage } from '../index';
-
-
+import { detailPage } from '../index';
 
 @Component({
-  selector: 'page-home',
-   templateUrl: 'home.html'
+  selector: 'page-profesional-list',
+   templateUrl: 'profesional-list.html'
 })
-export class HomePage implements OnInit{
+export class ProfesionalsListPage implements OnInit{
   pageTitle: string;
   profesionals : Profesional[];
   services : Service[];
-  fristTime: boolean;
-  userProfile: any;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
@@ -39,25 +36,10 @@ export class HomePage implements OnInit{
     if ( !this.auth.isAuthenticated() ) {
       this.navCtrl.push(LoginPage);
     }
-    this.verificateProfile();
 
-
-
-    this.pageTitle = 'Inicio';
+    this.pageTitle = 'Lista de profesionales';
     this.getProfesionals();
-    this.getServices();
   }
-
-
-  getServices(): void {
-    this.api.getServices()
-    .subscribe(
-      services => this.services = services,
-      err => console.log(err),
-      () => console.log(this.services)
-    )
-  }
-
   getProfesionals(): void {
     this.api.getProfesionals()
     .subscribe(
@@ -69,26 +51,6 @@ export class HomePage implements OnInit{
 
   profesionalDetail( profesional: Profesional ): void {
      this.navCtrl.push(ProfesionalsPage, { 'profesional': profesional });
-  }
-
-  serviceDetail( service: Service ): void {
-     this.navCtrl.push(detailPage, { 'service': service });
-  }
-
-
-  verificateProfile(): void{
-    console.log(this.user);
-    this.api.confirmationProfesional(this.user.id)
-    .subscribe(
-      profile => this.userProfile = profile,
-      err => console.log(err),
-      () => {
-              if( this.userProfile.length === 0 ) {
-                alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
-                this.navCtrl.push(ProfilePage);
-                }
-            }
-    )
   }
 
 }
