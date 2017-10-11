@@ -37,7 +37,7 @@ export class LoginPage implements OnInit, AfterContentInit{
     }
 
     if ( this.auth.isAuthenticated() ) {
-      this.navCtrl.push(HomePage);
+      this.navCtrl.setRoot(HomePage);
     }
 
     this.form = this.formBuilder.group({
@@ -59,7 +59,7 @@ export class LoginPage implements OnInit, AfterContentInit{
      .then(
         () => {
           console.log(this.user);
-          this.navCtrl.push(HomePage);
+          this.navCtrl.setRoot(HomePage);
         },
      (err: IDetailedError<any>) => {
         // Do something with err such as

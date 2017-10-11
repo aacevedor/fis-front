@@ -13,7 +13,7 @@ export class Authorization {
   refresh_token: string;
 }
 
-export class User {
+  export class User {
     id: number;
     name: string;
     email: string;
@@ -24,6 +24,7 @@ export class User {
     id_facebook: number;
     token_facebook: string;
     gender_facebook: string;
+    profile: Profesional;
 }
 
 export class Profesional {
