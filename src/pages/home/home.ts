@@ -13,6 +13,7 @@ import { Profesional, Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
 import { detailPage, ProfilePage } from '../index';
+import { Injectable } from '@angular/core';
 
 
 
@@ -26,6 +27,7 @@ export class HomePage implements OnInit{
   services : Service[];
   fristTime: boolean;
   userProfile: any;
+  session: any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
@@ -35,15 +37,11 @@ export class HomePage implements OnInit{
 
 
   ngOnInit(){
-
-    if ( !this.auth.isAuthenticated() ) {
-      this.navCtrl.push(LoginPage);
-    }
-    this.verificateProfile();
-
-
-
     this.pageTitle = 'Inicio';
+    if ( !this.auth.isAuthenticated() ) {
+          this.navCtrl.push(LoginPage);
+        }
+    this.verificateProfile();
     this.getProfesionals();
     this.getServices();
   }
@@ -54,7 +52,7 @@ export class HomePage implements OnInit{
     .subscribe(
       services => this.services = services,
       err => console.log(err),
-      () => console.log(this.services)
+      /*() => console.log(this.services)*/
     )
   }
 
@@ -63,7 +61,7 @@ export class HomePage implements OnInit{
     .subscribe(
       profesionals => this.profesionals = profesionals,
       err => console.log(err),
-      () => console.log(this.profesionals)
+      /*() => console.log(this.profesionals)*/
     )
   }
 
@@ -75,20 +73,40 @@ export class HomePage implements OnInit{
      this.navCtrl.push(detailPage, { 'service': service });
   }
 
-
   verificateProfile(): void{
-    console.log(this.user);
     this.api.confirmationProfesional(this.user.id)
     .subscribe(
       profile => this.userProfile = profile,
       err => console.log(err),
       () => {
-              if( this.userProfile.length === 0 ) {
-                alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
-                this.navCtrl.push(ProfilePage);
-                }
+            if( this.userProfile.length === 0 ) {
+              alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
+              this.navCtrl.push(ProfilePage);
+            }else{
+              this.session = this.userProfile;
             }
-    )
+          }
+    );
   }
 
+  getService():void {
+    alert('servicio contratado');
+  }
+
+}
+
+@Injectable()
+export class SessionService {
+  session: any;
+  constructor(public api: ApiService,
+              public user: User,
+              public auth: Auth) { }
+
+  getSession():void {
+    this.api.confirmationProfesional( this.user.id )
+    .subscribe(
+      session => this.session = session,
+      err     => console.log(err),
+    );
+  }
 }

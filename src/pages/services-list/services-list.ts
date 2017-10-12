@@ -55,5 +55,9 @@ export class ServicesListPage implements OnInit{
   serviceDetail( service: Service ): void {
      this.navCtrl.push(detailPage, { 'service': service });
   }
+  
+  getService():void {
+    alert('servicio contratado');
+  }
 
 }

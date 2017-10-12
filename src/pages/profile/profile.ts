@@ -1,13 +1,15 @@
 import { Component,
          OnInit} from '@angular/core';
 import { ApiService } from '../../api/api.services';
-import { NavController } from 'ionic-angular';
 import { Auth,
          User,
          UserDetails,
          IDetailedError } from '@ionic/cloud-angular';
 import { Http } from '@angular/http';
 import { ENV } from '../../config/env';
+import { NavController , NavParams} from 'ionic-angular';
+import { HomePage } from '../home/home';
+
 
 
 @Component({
@@ -18,6 +20,7 @@ export class ProfilePage implements OnInit{
 
   profile: User;
   success: any;
+  session: any;
   constructor(public navCtrl: NavController,
               public auth: Auth,
               public user: User,
@@ -27,8 +30,8 @@ export class ProfilePage implements OnInit{
 
 
 ngOnInit(): void {
-  console.log(this.user);
   this.userSync();
+  this.getSession();
 }
 
 
@@ -55,9 +58,31 @@ getProfile():void {
     .subscribe(
       profile => this.profile = profile,
       err   => console.log(err),
-      ()  => console.log( this.profile ),
+      // ()  => console.log( this.profile ),
     )
 }
+
+getSession(): void {
+  this.api.confirmationProfesional( this.user.id )
+  .subscribe(
+    session => this.session = session[0],
+    err     => console.log( err ),
+    ()      =>  { this.api.getProfesional( this.session.id )
+                  .subscribe(
+                      session => this.session = session,
+                      err     => console.log(err),
+                      ()      => console.log(this.session),
+                  )
+               }
+  )
+}
+
+guardar(): void {
+  alert('Perfil guardado con exito');
+  this.navCtrl.setRoot(HomePage);
+
+}
+
 
 
 }

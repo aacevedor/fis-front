@@ -29,11 +29,11 @@
   </ion-card>
 
 
-  <ion-card *ngFor="let service of services" (click)='serviceDetail(service)'>
+  <ion-card *ngFor="let service of services">
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <ion-row>
+          <ion-row (click)='serviceDetail(service)'>
             <ion-col col-4>
               <img col-12 src="http://lorempixel.com/640/480/?94887"/>
             </ion-col>
@@ -66,8 +66,10 @@
             <p>
               Tipo de servicio: {{service.services_type_id}}
             </p>
-
           </ion-card-content>
+          <ion-item>
+            <button ion-button (click)="getService()">Contratar</button>
+          </ion-item>
         </ion-row>
       </ion-grid>
     </ion-card>
