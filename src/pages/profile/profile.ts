@@ -30,8 +30,8 @@ export class ProfilePage implements OnInit{
 
 
 ngOnInit(): void {
+  console.log( this.user );
   this.userSync();
-  this.getSession();
 }
 
 
@@ -43,11 +43,14 @@ userSync():void {
     password:'p0p01234',
     ionic_id:this.user.id,
   }
+  console.log(data);
   this.http.post( ENV.APP_BACKEND + '/api/users', data)
   .subscribe(
     success => this.success = success,
     err => console.log(err),
-    () => console.log(this.success)
+    () => { console.log(this.success)
+            this.getSession()
+          }
   );
 
 }
@@ -67,7 +70,9 @@ getSession(): void {
   .subscribe(
     session => this.session = session[0],
     err     => console.log( err ),
-    ()      =>  { this.api.getProfesional( this.session.id )
+    ()      =>  {
+                  console.log(this.session)
+                  this.api.getProfesional( this.session.id )
                   .subscribe(
                       session => this.session = session,
                       err     => console.log(err),

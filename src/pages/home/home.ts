@@ -38,12 +38,12 @@ export class HomePage implements OnInit{
 
   ngOnInit(){
     this.pageTitle = 'Inicio';
-    if ( !this.auth.isAuthenticated() ) {
-          this.navCtrl.push(LoginPage);
-        }
-    this.verificateProfile();
-    this.getProfesionals();
-    this.getServices();
+    if ( this.auth.isAuthenticated() ) {
+          this.verificateProfile();
+          this.getProfesionals();
+          this.getServices();
+    }else{this.navCtrl.push(LoginPage);}
+          
   }
 
 
