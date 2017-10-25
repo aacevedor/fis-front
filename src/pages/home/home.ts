@@ -14,6 +14,9 @@ import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
 import { detailPage, ProfilePage } from '../index';
 import { Injectable } from '@angular/core';
+import { Platform, AlertController } from 'ionic-angular';
+import { Push, PushToken } from '@ionic/cloud-angular';
+
 
 
 
@@ -28,22 +31,31 @@ export class HomePage implements OnInit{
   fristTime: boolean;
   userProfile: any;
   session: any;
+  token : any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
               public user: User,
               public auth: Auth,
+              public platform: Platform,
+              public push: Push,
+              public ctrlAlert: AlertController
   ) {}
 
 
   ngOnInit(){
-    this.pageTitle = 'Inicio';
-    if ( this.auth.isAuthenticated() ) {
-          this.verificateProfile();
-          this.getProfesionals();
-          this.getServices();
-    }else{this.navCtrl.push(LoginPage);}
-          
+
+    this.platform.ready().then(() => {
+      this.pageTitle = 'Inicio';
+      if ( this.auth.isAuthenticated() ) {
+            this.verificateProfile();
+            this.getProfesionals();
+            this.getServices();
+            this.initPushNotification();
+      }else{this.navCtrl.push(LoginPage);}
+    });
+
+
   }
 
 
@@ -92,6 +104,36 @@ export class HomePage implements OnInit{
   getService():void {
     alert('servicio contratado');
   }
+
+  initPushNotification(){
+      if( !this.platform.is('cordova')){
+          console.warn( "Para iniciar el plugin de notificaciones push, se debe emplear un dispositivo virtual o real" );
+          return;
+      }
+
+      this.push.register().then((t: PushToken) => {
+        return this.push.saveToken(t);
+      }).then((t: PushToken) => {
+        console.log('Token saved:', t.token);
+        this.token = t.token;
+        //this.initAlert();
+      });
+
+      this.push.rx.notification()
+      .subscribe((msg) => {
+        alert(msg.title + ': ' + msg.text);
+      });
+    }
+
+
+    initAlert() {
+      let alert = this.ctrlAlert.create({
+        title: '',
+        subTitle: 'Token :'+ this.token,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
 
 }
 

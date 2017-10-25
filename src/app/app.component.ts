@@ -31,18 +31,14 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage:any = HomePage;
   pages: Array<{ title: string, component: any }>;
-  token : any;
 
-  constructor(public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public push: Push, public ctrlAlert: AlertController) {
-    this.token = '';
+  constructor(public platform: Platform,  statusBar: StatusBar, splashScreen: SplashScreen, public push: Push, public ctrlAlert: AlertController) {
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
-      this.initPushNotification();
-      this.initAlert();
     });
 
 
@@ -62,37 +58,6 @@ export class MyApp {
 
       ];
   }
-
-  initPushNotification(){
-      if( !this.platform.is('cordova')){
-          console.warn( "Para iniciar el plugin de notificaciones push, se debe emplear un dispositivo virtual o real" );
-          return;
-      }
-
-      this.push.register()
-      .then((t: PushToken) => {
-
-        return this.push.saveToken(t);
-      })
-      .then((t: PushToken) => {
-        this.token = t.token;
-        console.log('Token saved:', t.token);
-      });
-
-      this.push.rx.notification()
-      .subscribe((msg) => {
-        alert(msg.title + ': ' + msg.text);
-      });
-    }
-
-    initAlert() {
-      let alert = this.ctrlAlert.create({
-        title: '',
-        subTitle: 'Token :'+ this.token,
-        buttons: ['OK']
-      });
-      alert.present();
-    }
 
   openPage(page) {
      // Reset the content nav to have just this page
