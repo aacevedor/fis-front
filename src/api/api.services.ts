@@ -66,7 +66,7 @@ export class ApiService {
   }
 
   getServicesStatus(id: number) : Observable<any> {
-    return this.http.get( ENV.APP_BACKEND + '/api/services-status7' + id )
+    return this.http.get( ENV.APP_BACKEND + '/api/services-status/' + id )
       .map( response => response.json())
   }
 
@@ -74,5 +74,12 @@ export class ApiService {
     return this.http.get( ENV.APP_BACKEND + '/api/user/confirmation/' + id )
       .map (response => response.json())
   }
+
+
+  createProfesionalProfile( params: any ): Observable<any> {
+    return this.http.post( ENV.APP_BACKEND + 'api/users-profile/create', params )
+      .map (response => response.json());
+  }
+
 
 }

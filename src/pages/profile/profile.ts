@@ -9,6 +9,7 @@ import { Http } from '@angular/http';
 import { ENV } from '../../config/env';
 import { NavController , NavParams} from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { Profesional } from '../../class/profile';
 
 
 
@@ -18,9 +19,11 @@ import { HomePage } from '../home/home';
 })
 export class ProfilePage implements OnInit{
 
-  profile: User;
+  profile: Profesional;
   success: any;
   session: any;
+  update: any;
+
   constructor(public navCtrl: NavController,
               public auth: Auth,
               public user: User,
@@ -30,8 +33,8 @@ export class ProfilePage implements OnInit{
 
 
 ngOnInit(): void {
-  console.log( this.user );
   this.userSync();
+
 }
 
 
@@ -43,14 +46,12 @@ userSync():void {
     password:'p0p01234',
     ionic_id:this.user.id,
   }
-  console.log(data);
+
   this.http.post( ENV.APP_BACKEND + '/api/users', data)
   .subscribe(
     success => this.success = success,
     err => console.log(err),
-    () => { console.log(this.success)
-            this.getSession()
-          }
+    () => this.getSession()
   );
 
 }
@@ -61,7 +62,6 @@ getProfile():void {
     .subscribe(
       profile => this.profile = profile,
       err   => console.log(err),
-      // ()  => console.log( this.profile ),
     )
 }
 
@@ -71,20 +71,42 @@ getSession(): void {
     session => this.session = session[0],
     err     => console.log( err ),
     ()      =>  {
-                  console.log(this.session)
                   this.api.getProfesional( this.session.id )
                   .subscribe(
                       session => this.session = session,
                       err     => console.log(err),
-                      ()      => console.log(this.session),
+                      ()      => {
+                          this.profile = this.session.profile;
+                          console.log(this.profile);
+                      }
                   )
                }
   )
 }
 
 guardar(): void {
-  alert('Perfil guardado con exito');
-  this.navCtrl.setRoot(HomePage);
+  // let params = {
+  //   first_name: this.profile.first_name,
+  //   last_name: this.last_name,
+  //   description: this.description,
+  //   city: this.city,
+  //   gender: this.gender,
+  //   profesion: this.profesion,
+  //   address: this.address,
+  //   image: this.image,
+  //
+  // }
+
+  this.api.createProfesionalProfile(  this.profile )
+    .subscribe(
+        result => this.update = result,
+        err    => alert('error al actualzar'),
+        ()     => {
+          alert('Perfil guardado con exito');
+          this.navCtrl.setRoot(HomePage);
+        }
+    );
+
 
 }
 

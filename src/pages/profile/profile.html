@@ -22,18 +22,69 @@
       </ion-card-content>
     </ion-row>
     <ion-row>
-      <ion-list col-12>
+      <ion-list col-12 *ngIf="profile?.first_name">
         <ion-item col-12>
           <ion-label col-12>Fecha de registro: {{ session?.created_at }}</ion-label>
         </ion-item>
+
+        <ion-item col-12>
+          <ion-label >Nombres</ion-label>
+            <ion-input [(ngModel)]="profile.first_name" placeholder=""></ion-input>
+        </ion-item>
+
+        <ion-item col-12>
+          <ion-label >Apellidos</ion-label>
+          <ion-input  [(ngModel)]="profile.last_name" placeholder=""></ion-input>
+        </ion-item>
+
+        <ion-item col-12>
+          <ion-label >Descripción de mi perfil</ion-label>
+          <ion-input  [(ngModel)]="profile.description" type="text" placeholder=""></ion-input>
+        </ion-item>
+
+        <ion-item col-12>
+          <ion-label >Ciudad</ion-label>
+          <ion-select [(ngModel)]="profile.city_id">
+            <ion-option value="1">Bogotá</ion-option>
+          </ion-select>
+        </ion-item>
+
         <ion-item col-12>
           <ion-label >Genero</ion-label>
-          <ion-select [(ngModel)]="gender">
+          <ion-select [(ngModel)]="profile.gender">
             <ion-option value="male">Masculino</ion-option>
             <ion-option value="female">Femenino</ion-option>
             <ion-option value="others">Otros</ion-option>
           </ion-select>
         </ion-item>
+
+        <ion-item col-12>
+          <ion-label >Profesion</ion-label>
+          <ion-select [(ngModel)]="profile.profession">
+            <ion-option value="Lavador">Lavador</ion-option>
+            <ion-option value="Barredor">Barredor</ion-option>
+            <ion-option value="Ingeniero">Ingeniero</ion-option>
+            <ion-option value="Diseñador">Diseñador</ion-option>
+            <ion-option value="Electricista">Electricista</ion-option>
+            <ion-option value="Mecanico">Mecanico</ion-option>
+            <ion-option value="Mascotas">Mascotas</ion-option>
+            <ion-option value="Merihuanero">Merihuanero</ion-option>
+            <ion-option value="Periquero">Periquero</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item col-12>
+          <ion-label >Dirección</ion-label>
+          <ion-input  [(ngModel)]="profile.address" placeholder=""></ion-input>
+        </ion-item>
+
+        <ion-item col-12>
+          <ion-label >Imagen de perfil</ion-label>
+          <ion-select [(ngModel)]="profile.image">
+            <button ion-button>Tomar Foto</button>
+          </ion-select>
+        </ion-item>
+
 
       </ion-list>
       <button ion-button (click)="guardar()">Guardar</button>
