@@ -71,37 +71,26 @@ getSession(): void {
     session => this.session = session[0],
     err     => console.log( err ),
     ()      =>  {
-                  this.api.getProfesional( this.session.id )
-                  .subscribe(
-                      session => this.session = session,
-                      err     => console.log(err),
-                      ()      => {
-                          this.profile = this.session.profile;
-                          console.log(this.profile);
-                      }
-                  )
-               }
+            this.api.getProfesional( this.session.id )
+            .subscribe(
+                session => this.session = session,
+                err     => console.log(err),
+                ()      => {
+                    this.profile = this.session.profile;
+                    console.log(this.profile);
+                }
+            )
+         }
   )
 }
 
 guardar(): void {
-  // let params = {
-  //   first_name: this.profile.first_name,
-  //   last_name: this.last_name,
-  //   description: this.description,
-  //   city: this.city,
-  //   gender: this.gender,
-  //   profesion: this.profesion,
-  //   address: this.address,
-  //   image: this.image,
-  //
-  // }
-
   this.api.createProfesionalProfile(  this.profile )
     .subscribe(
         result => this.update = result,
-        err    => alert('error al actualzar'),
+        err    => console.log(err),
         ()     => {
+          console.log(this.update);
           alert('Perfil guardado con exito');
           this.navCtrl.setRoot(HomePage);
         }

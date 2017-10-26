@@ -1,6 +1,6 @@
 import { ENV } from '../config/env';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -77,7 +77,9 @@ export class ApiService {
 
 
   createProfesionalProfile( params: any ): Observable<any> {
-    return this.http.post( ENV.APP_BACKEND + 'api/users-profile/create', params )
+    let id = params.id;
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.put( ENV.APP_BACKEND + '/api/users-profile/' + id, JSON.stringify( params ), {headers: headers} )
       .map (response => response.json());
   }
 
