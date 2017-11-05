@@ -83,5 +83,10 @@ export class ApiService {
       .map (response => response.json());
   }
 
+  sendMail(params : any ){
+    return this.http.get(ENV.APP_BACKEND + '/api/notification/'+ params.type +'/'+ params.id )
+      .map( response => response.json() );
+  }
+
 
 }

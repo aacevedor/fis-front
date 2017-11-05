@@ -56,15 +56,7 @@ userSync():void {
 
 }
 
-getProfile():void {
-  const id = 1
-  this.api.getProfesional( id )
-    .subscribe(
-      profile => this.profile = profile,
-      err   => console.log(err),
-    )
-}
-
+//Get user login ingormation complete
 getSession(): void {
   this.api.confirmationProfesional( this.user.id )
   .subscribe(
@@ -76,16 +68,15 @@ getSession(): void {
                 session => this.session = session,
                 err     => console.log(err),
                 ()      => {
-                    this.profile = this.session.profile;
-                    console.log(this.profile);
+                    console.log(this.session);
                 }
             )
          }
   )
 }
 
-guardar(): void {
-  this.api.createProfesionalProfile(  this.profile )
+save(): void {
+  this.api.createProfesionalProfile(  this.session.profile )
     .subscribe(
         result => this.update = result,
         err    => console.log(err),
@@ -95,8 +86,22 @@ guardar(): void {
           this.navCtrl.setRoot(HomePage);
         }
     );
+}
 
+changeRole(): void {
+  this.api.sendMail( {id:this.session.id, type:'changeRole' } )
+    .subscribe(
+      susses => alert('Solicitud enviada'),
+      err    => console.log(err),
+    )
+}
 
+detectRole( roles: Array<any>): Boolean{
+  let exit = false;
+  roles.forEach(function (val, index) {
+      if( val.id === 3 ){ exit = true; }
+  });
+  return exit;
 }
 
 
