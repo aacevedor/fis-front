@@ -52,8 +52,22 @@ export class Service{
     services_type_id : number;
     description: string;
     user_id: number;
-    price: string;
+    price: number;
     created_at: string;
     updated_at: string;
     user : Profesional;
+}
+
+export class Contracts{
+    id : number;
+    service_id: number;
+    price: string;
+    service_time: string
+    total_price: string;
+    request_date: string;
+    deliveri_date: string;
+    status_id: number;
+    created_at: string;
+    updated_at: string;
+      
 }

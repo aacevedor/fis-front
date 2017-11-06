@@ -69,7 +69,6 @@ export class LoginPage implements OnInit, AfterContentInit{
    this.auth.login('basic',this.form.value)
      .then(
         () => {
-          console.log(this.user);
           this.navCtrl.setRoot(HomePage);
         },
      (err: IDetailedError<any>) => {

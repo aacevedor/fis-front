@@ -26,10 +26,12 @@ import { ProfesionalsPage } from '../pages/index';
 import { ProfesionalsListPage, ServicesListPage } from '../pages/index';
 import { RegisterPage } from '../pages/register/register';
 import { LogoutPage } from '../pages/logout/logout';
-
+import { MyServices } from '../pages/my-services/my-services';
 import { ProfileService } from '../app/app.services';
 import { ProfesionalsService } from '../app/app.services';
 import { ApiService } from '../api/api.services';
+import { MyContracts } from  '../pages/my-contracts/my-contracts';
+
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -56,7 +58,9 @@ const cloudSettings: CloudSettings = {
     RegisterPage,
     LogoutPage,
     ProfesionalsListPage,
-    ServicesListPage
+    ServicesListPage,
+    MyServices,
+    MyContracts
   ],
   imports: [
     BrowserModule,
@@ -76,7 +80,9 @@ const cloudSettings: CloudSettings = {
     RegisterPage,
     LogoutPage,
     ProfesionalsListPage,
-    ServicesListPage
+    ServicesListPage,
+    MyServices,
+    MyContracts
   ],
   providers: [
     StatusBar,

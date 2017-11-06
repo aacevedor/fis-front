@@ -95,14 +95,28 @@ export class HomePage implements OnInit{
               alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
               this.navCtrl.push(ProfilePage);
             }else{
-              this.session = this.userProfile;
+              this.api.getProfesional( this.userProfile[0].id )
+              .subscribe(
+                  session => this.session = session,
+                  err     => console.log(err),
+                  ()      => {
+                      Object.defineProperty(this.user.details, 'session',{ value: this.session, enumerable:true})
+                      console.log(this.user);
+                 }
+              )
+
             }
           }
     );
   }
 
-  getService():void {
-    alert('servicio contratado');
+  getService(service, id):void {
+    this.api.createServiceComfirm( service, id)
+    .subscribe(
+        success => alert('Procesando solicitud'),
+        err    => console.log(err),
+    );
+    alert('Servicio contratado');
   }
 
   initPushNotification(){

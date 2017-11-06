@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>{{pageTitle}}</ion-title>
+    </ion-navbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="user.details.session.services_confirm.length === 0">
+   <button (click)="addService()"> No tienes contrataciones aun</button>
+</ion-content>
+<ion-content padding *ngIf="user.details.session.services_confirm.length !== 0">
+  <ion-title>Historial</ion-title>
+  <ion-card *ngFor="let service of user.details.session.services_confirm">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-row (click)='serviceDetail(service)'>
+            <ion-col col-4>
+              <img col-12 src="http://lorempixel.com/640/480/?94887"/>
+            </ion-col>
+            <ion-card-content>
+              <ion-card-title>
+                {{ service.services.name }}
+              </ion-card-title>
+            </ion-card-content>
+          </ion-row>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-card>
+</ion-content>

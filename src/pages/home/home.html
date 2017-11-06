@@ -22,7 +22,7 @@
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <ion-title>SERVICIOS MAS BUSCADOS</ion-title>
+          <ion-title>NUEVOS SERVICIOS</ion-title>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -68,7 +68,7 @@
             </p>
           </ion-card-content>
           <ion-item>
-            <button ion-button (click)="getService()">Contratar</button>
+            <button ion-button (click)="getService(service, user.details.session.id)">Contratar</button>
           </ion-item>
         </ion-row>
       </ion-grid>
@@ -78,7 +78,7 @@
       <ion-grid>
         <ion-row>
           <ion-col col-12>
-            <ion-title>PROFESIONALES DISPONIBLES</ion-title>
+            <ion-title>NUEVOS PRESTADORES</ion-title>
           </ion-col>
         </ion-row>
       </ion-grid>

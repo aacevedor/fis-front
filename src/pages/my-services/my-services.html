@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>{{pageTitle}}</ion-title>
+    </ion-navbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="user?.details.session.services.length === 0">
+   <button (click)="addService()"> Agregar un servicio</button>
+   <ng-template [ngIf]="!action" [ngIfElse]="formCreate">
+    <ion-label>La lista de servicios esta vacia</ion-label>
+   </ng-template>
+</ion-content>
+<ion-content padding *ngIf="user.details.session.services.length !== 0">
+  <ion-title>ACTUALMENTE OFRECES</ion-title>
+  <ion-card *ngFor="let service of user.details.session.services">
+    <ion-grid>
+      <ion-row>z
+        <ion-col col-12>
+          <ion-row (click)='serviceDetail(service)'>
+            <ion-col col-4>
+              <img col-12 src="http://lorempixel.com/640/480/?94887"/>
+            </ion-col>
+            <ion-card-content>
+              <ion-card-title>
+                {{ service.name }}
+              </ion-card-title>
+            </ion-card-content>
+          </ion-row>
+        </ion-col>
+
+        </ion-row>
+      </ion-grid>
+  </ion-card>
+  <button (click)="addService()"> Agregar un servicio</button>
+  <ng-template [ngIf]="!action" [ngIfElse]="formCreate">
+   <ion-label>La lista de servicios esta vacia</ion-label>
+  </ng-template>
+</ion-content>
+
+<ng-template #formCreate>
+  <ion-item col-12>
+    <ion-label >Nombre del servicio</ion-label>
+      <ion-input [(ngModel)]="newService.name" placeholder=""></ion-input>
+  </ion-item>
+
+  <ion-item col-12>
+    <ion-label >Descripción del servicio</ion-label>
+    <ion-input  [(ngModel)]="newService.description" type="text" placeholder=""></ion-input>
+  </ion-item>
+
+  <ion-item col-12>
+    <ion-label >Valor por hora</ion-label>
+    <ion-input  [(ngModel)]="newService.price" type="text" placeholder=""></ion-input>
+  </ion-item>
+
+  <ion-item col-12>
+    <ion-label >Tipo de servicio</ion-label>
+    <ion-select  [(ngModel)]="newService.services_type_id" >
+      <ion-option value="1">Lavanderia</ion-option>
+      <ion-option value="2">Electrico</ion-option>
+      <ion-option value="3">Acompañamiento</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item col-12>
+    <ion-label >Valor por hora</ion-label>
+    <ion-input  [(ngModel)]="newService.user_id" type="text" placeholder="" ></ion-input>
+  </ion-item>
+
+
+  <button (click)="saveService()"> Guardar</button>
+
+</ng-template>
