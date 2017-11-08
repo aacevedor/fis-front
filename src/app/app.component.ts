@@ -11,25 +11,23 @@ import { LoginPage } from '../pages/index';
 import { HomePage } from '../pages/home/home';
 import { LogoutPage } from '../pages/logout/logout';
 
-import { detailPage } from '../pages/detail/detail';
+
 import { ProfilePage } from '../pages/profile/profile';
-import { ProfesionalsPage } from '../pages/profesionals/profesionals';
+
 import { ProfesionalsListPage, ServicesListPage } from '../pages/index';
 import { ApiService } from '../api/api.services';
 
-import { RegisterPage } from '../pages/register/register';
+
 import { MyServices } from  '../pages/my-services/my-services';
 import { MyContracts } from  '../pages/my-contracts/my-contracts';
 
 import {
-  Push,
-  PushToken
+  Push
 } from '@ionic/cloud-angular';
 
 import { Auth,
          User,
-         UserDetails,
-         IDetailedError } from '@ionic/cloud-angular';
+} from '@ionic/cloud-angular';
 
 
 
@@ -95,10 +93,5 @@ export class MyApp implements OnInit{
      // we wouldn't want the back button to show in this scenario
      this.nav.setRoot(page.component);
 
-   }
-
-   permision(page) {
-     console.log(page);
-     return true;
    }
 }

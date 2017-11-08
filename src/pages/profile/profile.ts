@@ -3,11 +3,10 @@ import { Component,
 import { ApiService } from '../../api/api.services';
 import { Auth,
          User,
-         UserDetails,
-         IDetailedError } from '@ionic/cloud-angular';
+         } from '@ionic/cloud-angular';
 import { Http } from '@angular/http';
 import { ENV } from '../../config/env';
-import { NavController , NavParams} from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Profesional } from '../../class/profile';
 
@@ -60,18 +59,9 @@ userSync():void {
 getSession(): void {
   this.api.confirmationProfesional( this.user.id )
   .subscribe(
-    session => this.session = session[0],
+    session => this.session = session,
     err     => console.log( err ),
-    ()      =>  {
-            this.api.getProfesional( this.session.id )
-            .subscribe(
-                session => this.session = session,
-                err     => console.log(err),
-                ()      => {
-                    console.log(this.session);
-                }
-            )
-         }
+
   )
 }
 

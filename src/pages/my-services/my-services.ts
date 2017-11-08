@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth,
          User,
-         UserDetails,
-         IDetailedError } from '@ionic/cloud-angular';
+         } from '@ionic/cloud-angular';
 import { ApiService } from '../../api/api.services';
-import { Platform, AlertController } from 'ionic-angular';
+import {  AlertController } from 'ionic-angular';
 import { Service } from '../../class/profile';
 
 

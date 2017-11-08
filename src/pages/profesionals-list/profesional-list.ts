@@ -6,13 +6,12 @@ import { NavController,
        } from 'ionic-angular';
 import { Auth,
          User,
-         UserDetails,
-         IDetailedError } from '@ionic/cloud-angular';
+          } from '@ionic/cloud-angular';
 import { ApiService } from '../../api/api.services';
 import { Profesional, Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
-import { detailPage } from '../index';
+
 
 @Component({
   selector: 'page-profesional-list',

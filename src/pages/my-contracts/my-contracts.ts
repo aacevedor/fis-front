@@ -2,17 +2,15 @@ import {
     Component,
     OnInit,
     AfterContentInit,
-
-      } from '@angular/core';
-import { ProfileService } from '../../app/app.services';
-import { Authorization } from '../../class/profile';
+} from '@angular/core';
 import { ApiService } from '../../api/api.services';
+import { Authorization } from '../../class/profile';
 import { Contracts } from '../../class/profile';
-import { NavController, NavParams } from 'ionic-angular';
 import { Auth,
          User,
-         UserDetails,
-         IDetailedError } from '@ionic/cloud-angular';
+      } from '@ionic/cloud-angular';
+import { NavController } from 'ionic-angular';
+import { ProfilePage } from '../index';
 
 
 
@@ -23,23 +21,42 @@ import { Auth,
   templateUrl: 'my-contracts.html'
 })
 export class MyContracts implements OnInit, AfterContentInit{
-
-  public authorization: Authorization;
   contracts: Contracts;
-  constructor( private profileService:ProfileService,
-               private navParams: NavParams,
+  session: any;
+  public authorization: Authorization;
+
+  constructor(
+              public api: ApiService,
                public user: User,
                public auth: Auth,
+               public navCtrl:NavController
                ) {}
 
   ngOnInit(): void{
-    console.log(this.user);
+    this.verificateProfile();
   }
 
 
 
   ngAfterContentInit(): void {
 
+  }
+
+  verificateProfile(): void{
+    this.api.confirmationProfesional(this.user.id)
+    .subscribe(
+      profile => this.session = profile,
+      err => console.log(err),
+      () => {
+            Object.defineProperty(this.user.details, 'session', {value:this.session, enumerable: true}) ;
+            if( this.session === '404' ) {
+              alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
+              this.navCtrl.push(ProfilePage);
+            }else{
+              console.log(this.session);
+            }
+          }
+    );
   }
 
 

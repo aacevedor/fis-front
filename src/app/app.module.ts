@@ -11,12 +11,12 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/index'
 import {
  GoogleMaps,
- GoogleMap,
- GoogleMapsEvent,
- GoogleMapOptions,
- CameraPosition,
- MarkerOptions,
- Marker
+// GoogleMap,
+// GoogleMapsEvent,
+ // GoogleMapOptions,
+ // CameraPosition,
+ // MarkerOptions,
+ // Marker
 } from '@ionic-native/google-maps';
 
 import { HomePage } from '../pages/index';

@@ -4,11 +4,11 @@ import {
     AfterContentInit,
 
       } from '@angular/core';
-import { ProfileService } from '../../app/app.services';
+
 import { Authorization } from '../../class/profile';
-import { ApiService } from '../../api/api.services';
+
 import { Service } from '../../class/profile';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 
 
 
@@ -23,8 +23,7 @@ export class detailPage implements OnInit, AfterContentInit{
 
   public authorization: Authorization;
   service: Service;
-  constructor( private profileService:ProfileService,
-               private navParams: NavParams,
+  constructor( private navParams: NavParams,
                ) {}
 
   ngOnInit():void{

@@ -7,7 +7,7 @@ import { Auth,
   UserDetails,
   IDetailedError } from '@ionic/cloud-angular';
 import { Authorization } from '../../class/profile';
-import { HomePage, LoginPage } from '../index';
+import { LoginPage } from '../index';
 import {Validators,
   FormBuilder,
   FormGroup} from '@angular/forms';

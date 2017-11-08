@@ -11,11 +11,11 @@ import {
  GoogleMapsEvent,
  GoogleMapOptions,
  //CameraPosition,
- MarkerOptions,
+ //MarkerOptions,
  //Marker
 } from '@ionic-native/google-maps';
 import { Profesional } from '../../class/profile';
-import { ApiService } from '../../api/api.services';
+
 
 
 @Component({
@@ -29,7 +29,6 @@ export class ProfesionalsPage implements OnInit{
   ready: boolean;
   coordinates: Array<any>;
   constructor(public navCtrl: NavController,
-              private api: ApiService,
               private navParams: NavParams,
               private alert: AlertController,
               private googleMaps: GoogleMaps,

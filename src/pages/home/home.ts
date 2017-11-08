@@ -6,12 +6,10 @@ import { NavController,
          NavParams,
          Nav
        } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
 
 import { Auth,
          User,
-         UserDetails,
-         IDetailedError } from '@ionic/cloud-angular';
+       } from '@ionic/cloud-angular';
 import { ApiService } from '../../api/api.services';
 import { Profesional, Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
@@ -37,7 +35,6 @@ export class HomePage implements OnInit {
   profesionals : Profesional[];
   services : Service[];
   fristTime: boolean;
-  userProfile: any;
   session: any;
   token : any;
   constructor(public navCtrl: NavController,
@@ -97,16 +94,16 @@ export class HomePage implements OnInit {
   verificateProfile(): void{
     this.api.confirmationProfesional(this.user.id)
     .subscribe(
-      profile => this.userProfile = profile,
+      profile => this.session = profile,
       err => console.log(err),
       () => {
-
-            if( this.userProfile === '404' ) {
+            Object.defineProperty(this.user.details, 'session', {value:this.session, enumerable: true}) ;
+            if( this.session === '404' ) {
               alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
               this.navCtrl.push(ProfilePage);
             }else{
 
-              console.log(this.userProfile);
+              console.log(this.session);
 
             }
           }

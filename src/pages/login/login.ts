@@ -5,7 +5,7 @@ import {
     Input,
   } from '@angular/core';
 import { NavController , NavParams} from 'ionic-angular';
-import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
+import { Auth, User, IDetailedError } from '@ionic/cloud-angular';
 import { Platform, AlertController } from 'ionic-angular';
 
 import { ValidationService } from '../../services/index';
@@ -16,7 +16,6 @@ import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 //import { PROFILE } from '../../mocks/mock-profile';
 import {
   Push,
-  PushToken
 } from '@ionic/cloud-angular';
 
 @Component({
