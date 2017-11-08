@@ -1,9 +1,13 @@
 import { Component,
          OnInit,
+         ViewChild
        } from '@angular/core';
 import { NavController,
-         NavParams
+         NavParams,
+         Nav
        } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+
 import { Auth,
          User,
          UserDetails,
@@ -24,8 +28,12 @@ import { Push, PushToken } from '@ionic/cloud-angular';
   selector: 'page-home',
    templateUrl: 'home.html'
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
+  @ViewChild(Nav) nav: Nav;
+
   pageTitle: string;
+  pages: Array<{ title: string, component: any }>;
+
   profesionals : Profesional[];
   services : Service[];
   fristTime: boolean;
@@ -47,6 +55,7 @@ export class HomePage implements OnInit{
 
     this.platform.ready().then(() => {
       this.pageTitle = 'Inicio';
+      this.pages = [ { title: 'adasdasdasdasdas', component: HomePage } ]
       if ( this.auth.isAuthenticated() ) {
             this.verificateProfile();
             this.getProfesionals();
@@ -91,19 +100,13 @@ export class HomePage implements OnInit{
       profile => this.userProfile = profile,
       err => console.log(err),
       () => {
-            if( this.userProfile.length === 0 ) {
+
+            if( this.userProfile === '404' ) {
               alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
               this.navCtrl.push(ProfilePage);
             }else{
-              this.api.getProfesional( this.userProfile[0].id )
-              .subscribe(
-                  session => this.session = session,
-                  err     => console.log(err),
-                  ()      => {
-                      Object.defineProperty(this.user.details, 'session',{ value: this.session, enumerable:true})
-                      console.log(this.user);
-                 }
-              )
+
+              console.log(this.userProfile);
 
             }
           }
