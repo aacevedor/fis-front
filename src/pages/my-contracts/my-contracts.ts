@@ -36,8 +36,6 @@ export class MyContracts implements OnInit, AfterContentInit{
     this.verificateProfile();
   }
 
-
-
   ngAfterContentInit(): void {
 
   }
@@ -58,7 +56,6 @@ export class MyContracts implements OnInit, AfterContentInit{
           }
     );
   }
-
 
 
 }
