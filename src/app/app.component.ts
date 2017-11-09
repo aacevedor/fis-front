@@ -70,6 +70,7 @@ export class MyApp implements OnInit{
               session => this.session = session,
               err     => console.log( err ),
               ()      => {
+                  console.log(this.session);
                  if(this.session.roles.id === 3) {
                    this.pages.push({ title: 'Mis Contratos', component: ProfilePage });
                    this.pages.push({ title: 'Mis Servicios', component: MyServices },);
