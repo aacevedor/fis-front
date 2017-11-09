@@ -10,8 +10,10 @@ import { Auth,
 import { ApiService } from '../../api/api.services';
 import { Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
-
 import { detailPage } from '../index';
+import { LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular'
+
 
 @Component({
   selector: 'page-services-list',
@@ -20,22 +22,23 @@ import { detailPage } from '../index';
 export class ServicesListPage implements OnInit{
   pageTitle: string;
   services : Service[];
+  loader: any;
+  alert:  any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
               public user: User,
               public auth: Auth,
+              public loadingCtrl: LoadingController,
+              private alertCtrl: AlertController
   ) {}
 
-
   ngOnInit(){
-
     if ( !this.auth.isAuthenticated() ) {
       this.navCtrl.push(LoginPage);
     }
-
-
+    this.presentProcess('Cargando...');
     this.pageTitle = 'Servicios';
     this.getServices();
   }
@@ -46,17 +49,42 @@ export class ServicesListPage implements OnInit{
     .subscribe(
       services => this.services = services,
       err => console.log(err),
-      () => console.log(this.services)
+      () => { this.loader.dismiss();}
     )
   }
-
 
   serviceDetail( service: Service ): void {
      this.navCtrl.push(detailPage, { 'service': service });
   }
 
-  getService():void {
-    alert('servicio contratado');
+  getService(service, id ):void {
+    console.log(id);
+    this.presentProcess('Enviando solicitud.')
+    this.api.createServiceComfirm( service, id)
+    .subscribe(
+        success => {},
+        err    => console.log(err),
+        ()     => { this.loader.dismiss(); this.showAlert('Info','Solicitud enviada.')  }
+    );
   }
+
+  presentProcess(text) {
+    this.loader = this.loadingCtrl.create({
+      content: text,
+      duration: 3000
+    });
+    this.loader.present();
+  }
+
+  showAlert(type,text){
+    this.alert = this.alertCtrl.create({
+      title: type,
+      subTitle: text,
+      buttons: ['OK']
+    });
+
+    this.alert.present();
+  }
+
 
 }

@@ -1,5 +1,6 @@
 import { Component,
          OnInit,
+         AfterViewInit,
          ViewChild
        } from '@angular/core';
 import { NavController,
@@ -15,18 +16,16 @@ import { Profesional, Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
 import { detailPage, ProfilePage } from '../index';
-import { Injectable } from '@angular/core';
-import { Platform, AlertController } from 'ionic-angular';
+import { Platform, AlertController } from 'ionic-angular'
 import { Push, PushToken } from '@ionic/cloud-angular';
-
-
+import { LoadingController } from 'ionic-angular';
 
 
 @Component({
   selector: 'page-home',
    templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, AfterViewInit {
   @ViewChild(Nav) nav: Nav;
 
   pageTitle: string;
@@ -37,6 +36,8 @@ export class HomePage implements OnInit {
   fristTime: boolean;
   session: any;
   token : any;
+  loader: any;
+  alert:  any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
@@ -44,24 +45,31 @@ export class HomePage implements OnInit {
               public auth: Auth,
               public platform: Platform,
               public push: Push,
-              public ctrlAlert: AlertController
+              public ctrlAlert: AlertController,
+              public loadingCtrl: LoadingController,
+              private alertCtrl: AlertController
+
+
   ) {}
 
 
   ngOnInit(){
-
     this.platform.ready().then(() => {
       this.pageTitle = 'Inicio';
-      this.pages = [ { title: 'adasdasdasdasdas', component: HomePage } ]
-      if ( this.auth.isAuthenticated() ) {
-            this.verificateProfile();
-            this.getProfesionals();
-            this.getServices();
-            this.initPushNotification();
-      }else{this.navCtrl.push(LoginPage);}
+
     });
 
+  }
 
+  ngAfterViewInit(){
+    if ( this.auth.isAuthenticated() ) {
+          this.presentProcess('Cargando...');
+          this.verificateProfile();
+          this.getProfesionals();
+          this.getServices();
+          this.initPushNotification();
+
+    }else{this.navCtrl.push(LoginPage);}
   }
 
 
@@ -98,25 +106,24 @@ export class HomePage implements OnInit {
       err => console.log(err),
       () => {
             Object.defineProperty(this.user.details, 'session', {value:this.session, enumerable: true}) ;
-            if( this.session === '404' ) {
-              alert( 'Para una mejor experiencia por favor completa la información de tu perfil' )
+            if( this.session === 404 || this.session.profile.description === '' ) {
+              this.showAlert('Info', 'Para una mejor experiencia por favor completa la información de tu perfil' )
               this.navCtrl.push(ProfilePage);
-            }else{
-
-              console.log(this.session);
-
             }
+            console.log(this.user);
           }
     );
   }
 
   getService(service, id):void {
+    this.presentProcess('Enviando solicitud.')
     this.api.createServiceComfirm( service, id)
     .subscribe(
-        success => alert('Procesando solicitud'),
+        success => {},
         err    => console.log(err),
+        ()     => { this.loader.dismiss(); this.showAlert('Info','Solicitud enviada.')  }
     );
-    alert('Servicio contratado');
+
   }
 
   initPushNotification(){
@@ -137,6 +144,7 @@ export class HomePage implements OnInit {
       .subscribe((msg) => {
         alert(msg.title + ': ' + msg.text);
       });
+      this.loader.dismiss();
     }
 
 
@@ -149,20 +157,23 @@ export class HomePage implements OnInit {
       alert.present();
     }
 
-}
 
-@Injectable()
-export class SessionService {
-  session: any;
-  constructor(public api: ApiService,
-              public user: User,
-              public auth: Auth) { }
+    presentProcess(text) {
+      this.loader = this.loadingCtrl.create({
+        content: text,
+        duration: 3000
+      });
+      this.loader.present();
+    }
 
-  getSession():void {
-    this.api.confirmationProfesional( this.user.id )
-    .subscribe(
-      session => this.session = session,
-      err     => console.log(err),
-    );
-  }
+    showAlert(type,text){
+      this.alert = this.alertCtrl.create({
+        title: type,
+        subTitle: text,
+        buttons: ['OK']
+      });
+
+      this.alert.present();
+    }
+
 }

@@ -13,24 +13,24 @@
     <ion-row>
       <ion-col col-12>
         <ion-card *ngIf="profesional">
-            <img width="280" height="300" src="{{profesional.image}}"/>
+            <img width="280" height="300" src="{{profesional.profile.image}}"/>
             <ion-card-content>
               <ion-card-title>
-                {{ profesional.first_name }} {{ profesional.last_name }}
+                {{ profesional.profile.first_name }} {{ profesional.profile.last_name }}
               </ion-card-title>
               <p>
-                {{ profesional.description }}
+                {{ profesional.profile.description }}
               </p>
             </ion-card-content>
             <ion-item>
               <ion-icon name='musical-notes' item-start style="color: #d03e84"></ion-icon>
               Genero:
-              <ion-badge item-end>{{profesional.gender}}</ion-badge>
+              <ion-badge item-end>{{profesional.profile.gender}}</ion-badge>
             </ion-item>
             <ion-item>
               <ion-icon name='logo-twitter' item-start style="color: #55acee"></ion-icon>
               Telefono:
-              <ion-badge item-end>{{profesional.phone}}</ion-badge>
+              <ion-badge item-end>{{profesional.profile.phone}}</ion-badge>
             </ion-item>
           </ion-card>
       </ion-col>

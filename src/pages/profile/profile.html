@@ -11,7 +11,9 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <img width="280" height="300" src="{{user.details.image}}"/>
+      <ion-item col-12>
+        <img width="280" height="300" src="{{user.details.image}}"/>
+      </ion-item>
       <ion-card-content>
         <ion-card-title>
           {{user.details.name }}
@@ -21,8 +23,8 @@
         </p>
       </ion-card-content>
     </ion-row>
-    <ion-row>
-      <ion-list col-12 *ngIf="session?.profile?.id">
+    <ion-row *ngIf="session?.profile?.id">
+      <ion-list col-12 >
         <ion-item col-12>
           <ion-label col-12>Fecha de registro: {{ session?.created_at }}</ion-label>
         </ion-item>

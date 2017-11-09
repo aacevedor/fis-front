@@ -11,6 +11,10 @@ import { ApiService } from '../../api/api.services';
 import { Profesional, Service } from '../../class/profile';
 import { LoginPage } from '../login/login';
 import { ProfesionalsPage } from '../index';
+import { LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
+
+
 
 
 @Component({
@@ -21,12 +25,16 @@ export class ProfesionalsListPage implements OnInit{
   pageTitle: string;
   profesionals : Profesional[];
   services : Service[];
+  loader: any;
+  alert: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
               public user: User,
               public auth: Auth,
+              public loadingCtrl: LoadingController,
+              private alertCtrl: AlertController
   ) {}
 
 
@@ -40,16 +48,34 @@ export class ProfesionalsListPage implements OnInit{
     this.getProfesionals();
   }
   getProfesionals(): void {
+    this.presentProcess('Cargando...')
     this.api.getProfesionals()
     .subscribe(
       profesionals => this.profesionals = profesionals,
-      err => console.log(err),
-      () => console.log(this.profesionals)
+      err => this.showAlert('Error','Error de conexion.'),
+      () => { console.log(this.profesionals); this.loader.dismiss() }
     )
   }
 
   profesionalDetail( profesional: Profesional ): void {
      this.navCtrl.push(ProfesionalsPage, { 'profesional': profesional });
+  }
+  presentProcess(text) {
+    this.loader = this.loadingCtrl.create({
+      content: text,
+      duration: 3000
+    });
+    this.loader.present();
+  }
+
+  showAlert(type,text){
+    this.alert = this.alertCtrl.create({
+      title: type,
+      subTitle: text,
+      buttons: ['OK']
+    });
+
+    this.alert.present();
   }
 
 }

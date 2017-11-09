@@ -14,7 +14,9 @@ import {
  //MarkerOptions,
  //Marker
 } from '@ionic-native/google-maps';
-import { Profesional } from '../../class/profile';
+//import { Profesional } from '../../class/profile';
+import { LoadingController } from 'ionic-angular';
+
 
 
 
@@ -25,18 +27,22 @@ import { Profesional } from '../../class/profile';
 export class ProfesionalsPage implements OnInit{
   map: GoogleMap;
   mapElement: HTMLElement;
-  profesional: Profesional;
+  profesional: any;
   ready: boolean;
   coordinates: Array<any>;
+  loader: any;
+  alert: any;
   constructor(public navCtrl: NavController,
               private navParams: NavParams,
-              private alert: AlertController,
               private googleMaps: GoogleMaps,
-              public platform: Platform) {}
+              public platform: Platform,
+              public loadingCtrl: LoadingController,
+              private alertCtrl: AlertController
+             ) {}
 
   ngOnInit(){
       this.profesional = this.navParams.get('profesional');
-      this.coordinates = this.profesional.geolocalization.split(',')
+      this.coordinates = this.profesional.profile.geolocalization.split(',')
       //this.getProfesionalDetail();
       if( !this.platform.is('cordova')){
           console.warn( "Para iniciar el plugin de maps, se debe emplear un dispositivo virtual o real" );
@@ -56,23 +62,6 @@ export class ProfesionalsPage implements OnInit{
     );
   }*/
 
-  showAlert(err): void {
-    let alert = this.alert.create(
-      {
-        title:'No encontrado',
-        subTitle:'Lo lamentamos, este perfil esta bloqueado',
-        buttons: [
-          {
-            text: 'Aceptar',
-            handler: data => {
-               this.navCtrl.pop();
-            }
-          }
-        ]
-      }
-    )
-    alert.present();
-  }
 
   loadMap() {
     this.mapElement = document.getElementById('map');
@@ -112,6 +101,25 @@ export class ProfesionalsPage implements OnInit{
           }
       );
 
+  }
+
+
+  presentProcess(text) {
+    this.loader = this.loadingCtrl.create({
+      content: text,
+      duration: 3000
+    });
+    this.loader.present();
+  }
+
+  showAlert(type,text){
+    this.alert = this.alertCtrl.create({
+      title: type,
+      subTitle: text,
+      buttons: ['OK']
+    });
+
+    this.alert.present();
   }
 
 }
