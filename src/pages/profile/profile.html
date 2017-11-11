@@ -92,7 +92,7 @@
       <button ion-button (click)="save()">Guardar</button>
     </ion-row>
     <ion-row *ngIf="session?.roles" >
-      <button ion-button *ngIf="detectRole( session?.roles )" (click)="changeRole()">Deseo prestar un servicio</button>
+      <button ion-button *ngIf="session?.roles.id === 2" (click)="changeRole()">Deseo prestar un servicio</button>
     </ion-row>
 
   </ion-grid>

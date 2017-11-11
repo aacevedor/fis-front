@@ -89,13 +89,6 @@ export class ProfilePage implements OnInit{
       )
   }
 
-  detectRole( roles: Array<any>): Boolean{
-    let exit = false;
-    roles.forEach(function (val, index) {
-        if( val.id === 2 ){ exit = true; }
-    });
-    return exit;
-  }
 
   presentProcess(text) {
     this.loader = this.loadingCtrl.create({

@@ -9,24 +9,43 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding *ngIf="user.details.session.services_confirm.length === 0">
-   <button (click)="addService()"> No tienes contrataciones aun</button>
-</ion-content>
 <ion-content padding *ngIf="user.details.session.services_confirm.length !== 0">
-  <ion-title>Historial</ion-title>
+  <ion-title>Mis Contratos</ion-title>
   <ion-card *ngFor="let service of user.details.session.services_confirm">
     <ion-grid>
       <ion-row>
         <ion-col col-12>
-          <ion-row (click)='serviceDetail(service)'>
-            <ion-col col-4>
-              <img col-12 src="http://lorempixel.com/640/480/?94887"/>
+          <ion-row >
+            <ion-col col-4 (click)='serviceDetail(service)'>
+              <img col-12 src="http://lorempixel.com/330/250/?94887"/>
             </ion-col>
-            <ion-card-content>
-              <ion-card-title>
-                {{ service.services.name }}
-              </ion-card-title>
-            </ion-card-content>
+            <ion-col col-8>
+                  {{ service.services.name }}<br>
+                  Solicitado: {{service.request_date}}<br>
+                  Total: {{service.total_price}}<br>
+                  <div style="color:#12add0" *ngIf="service.status_id === 1 ">
+                    Estado: Solicitado
+                  <button (click)="cancelService(service)">Cancelar</button>
+                  </div>
+                  <div style="color:#12d067" *ngIf="service.status_id === 2 ">
+                    Estado: Aceptado
+                  </div>
+                  <div style="color:#d6d026" *ngIf="service.status_id === 3 ">
+                    Estado: En proceso
+                  </div>
+                  <div style="color:#d66f26" *ngIf="service.status_id === 4 ">
+                    Estado: Terminado
+                  </div>
+                  <div style="color:#791dbf" *ngIf="service.status_id === 5 ">
+                    Estado: Aprobado
+                  </div>
+                  <div style="color:#ff0000" *ngIf="service.status_id === 6 ">
+                    Estado: Rechazado
+                  </div>
+                  <div style="color:#ff0000" *ngIf="service.status_id === 7 ">
+                    Estado: Cancelado
+                  </div>
+            </ion-col>
           </ion-row>
         </ion-col>
         </ion-row>

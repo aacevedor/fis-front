@@ -118,4 +118,11 @@ export class ApiService {
   }
 
 
+  updateServiceConfirm(params: any, service_confirm_id: number ){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    console.log(params);
+    return this.http.put( ENV.APP_BACKEND + '/api/services-confirm/' + service_confirm_id, JSON.stringify( params ), {headers: headers} )
+       .map (response => response.json());
+  }
+
 }

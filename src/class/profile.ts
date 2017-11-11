@@ -56,6 +56,7 @@ export class Service{
     created_at: string;
     updated_at: string;
     user : Profesional;
+    status_id: number;
 }
 
 export class Contracts{
@@ -69,5 +70,5 @@ export class Contracts{
     status_id: number;
     created_at: string;
     updated_at: string;
-      
+
 }
