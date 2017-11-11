@@ -92,11 +92,18 @@ export class ApiService {
 
   createService( params: any ){
     let headers = new Headers({'Content-Type': 'application/json'});
-    console.log(JSON.stringify( params ));
     return this.http.post(ENV.APP_BACKEND + '/api/services',  JSON.stringify( params ), {headers: headers} )
       .map(response => response.json);
 
   }
+
+  deleteService(id: number ){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.delete(ENV.APP_BACKEND + '/api/services/'+ id, {headers: headers} )
+      .map(response => response.json);
+
+  }
+
 
   createServiceComfirm(service:any, user_id: number) {
     let now = new Date();

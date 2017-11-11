@@ -3,10 +3,12 @@ import { Auth,
          User,
          } from '@ionic/cloud-angular';
 import { ApiService } from '../../api/api.services';
-import {  AlertController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { Service } from '../../class/profile';
 import { NavController } from 'ionic-angular';
-import { ProfilePage } from '../index';
+import { ProfilePage, detailPage } from '../index';
+
+
 
 
 
@@ -22,12 +24,14 @@ export class MyServices implements OnInit{
   newService: Service;
   services: any;
   session: any;
-
+  alert: any;
   constructor(public api: ApiService,
               public user: User,
               public auth: Auth,
               public ctrlAlert: AlertController,
-              public navCtrl: NavController ){
+              public navCtrl: NavController,
+              private alertCtrl: AlertController
+             ){
 
   }
 
@@ -46,14 +50,21 @@ export class MyServices implements OnInit{
   saveService(): void{
       this.api.createService(this.newService )
         .subscribe(
-          successful => alert('Servicio guardado'),
+          successful => {},
           err        => console.log( err ),
-          ()         => { this.verificateProfile() }
+          ()         => { this.showAlert('Info', 'Servicio guardado.'); this.verificateProfile() }
         );
-
-      alert('Servicio guardado');
   }
 
+  deleteService(service): void{
+
+    this.deleteAlert('Info','¿Esta seguro?',service.id);
+
+  }
+
+  serviceDetail( service: Service ): void {
+     this.navCtrl.push(detailPage, { 'service': service });
+  }
 
   verificateProfile(): void{
     this.api.confirmationProfesional(this.user.id)
@@ -72,6 +83,37 @@ export class MyServices implements OnInit{
             }
           }
     );
+  }
+
+  deleteAlert(type,text, id){
+    this.alert = this.alertCtrl.create({
+      title: type,
+      subTitle: text,
+      buttons: [{
+        text: 'Si',
+        handler: () => {
+          this.api.deleteService( id )
+            .subscribe(
+                  success => {console.log(success)},
+                  err     => {console.log(err)},
+                  ()      => { this.showAlert('Info', 'Servicio Eliminado');  this.verificateProfile()}
+            )
+          }
+      },
+      {
+        text:'No',
+      }]
+    });
+    this.alert.present();
+  }
+  showAlert(type,text){
+    this.alert = this.alertCtrl.create({
+      title: type,
+      subTitle: text,
+      buttons: ['OK']
+    });
+
+    this.alert.present();
   }
 
 }

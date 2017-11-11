@@ -89,7 +89,9 @@
           <ion-col col-12>
             <ion-row>
               <ion-col col-4>
-                <img col-12 src="{{profesional.image}}"/>
+                <ion-col col-4>
+                  <img col-12 src="http://lorempixel.com/100/80/?94887"/>
+                </ion-col>
               </ion-col>
               <ion-col col-8>
                 <ion-item>
@@ -107,10 +109,10 @@
           </ion-col>
             <ion-card-content>
               <ion-card-title>
-                {{ profesional.first_name }} {{ profesional.last_name }}
+                {{ profesional.profile.first_name }} {{ profesional.last_name }}
               </ion-card-title>
               <p>
-                {{ profesional.profession}}
+                {{ profesional.profile.profession}}
               </p>
             </ion-card-content>
           </ion-row>

@@ -87,6 +87,18 @@ export class MyContracts implements OnInit, AfterContentInit{
     this.alert.present();
   }
 
+  confirmAlert(type,text){
+    this.alert = this.ctrlAlert.create({
+      title: type,
+      subTitle: text,
+      buttons: [{
+        text:'OK',
+      }]
+    });
+
+    this.alert.present();
+  }
+
   cancelAlert(type,text){
     this.alert = this.ctrlAlert.create({
       title: type,
@@ -103,12 +115,12 @@ export class MyContracts implements OnInit, AfterContentInit{
           let params = {
               status_id: this.service_cancel.status_id
           }
-          let id = this.service_cancel.id; 
+          let id = this.service_cancel.id;
           this.api.updateServiceConfirm(params, id)
           .subscribe(
             success => { console.log(success) },
             err     => console.log( err ),//this.showAlert('Error','Se ha presentado un error, intentelo nuevamente'),
-            ()      => this.showAlert('Info','El servicio ha sido cancelado'),
+            ()      => this.confirmAlert('Info','El servicio ha sido cancelado'),
           );
         }
       }]

@@ -87,7 +87,7 @@ export class HomePage implements OnInit, AfterViewInit {
     .subscribe(
       profesionals => this.profesionals = profesionals,
       err => console.log(err),
-      /*() => console.log(this.profesionals)*/
+      () => console.log(this.profesionals)
     )
   }
 

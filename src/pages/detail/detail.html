@@ -12,24 +12,24 @@
   <ion-grid>
     <ion-row>
       <ion-col col-12>
-        <ion-card *ngIf="service">
+        <ion-card *ngIf="service?.name">
             <img width="280" height="300" src="http://lorempixel.com/640/480/?94887"/>
             <ion-card-content>
               <ion-card-title>
-                {{ service.name }}
+                {{ service?.name }}
               </ion-card-title>
               <p>
-                {{ service.description }}
+                {{ service?.description }}
               </p>
             </ion-card-content>
             <ion-item>
               Precio:
-              <ion-badge item-end>$ {{service.price}}</ion-badge>
+              <ion-badge item-end>$ {{service?.price}}</ion-badge>
             </ion-item>
-            <ion-item>
+            <ion-item *ngIf="service?.user?.name">
               Prestador:
-              <p>{{service.user.name}}</p>
-              <p>{{service.user.email}}</p>
+              <p>{{service?.user?.name}}</p>
+              <p>{{service?.user?.email}}</p>
             </ion-item>
           </ion-card>
       </ion-col>

@@ -15,27 +15,31 @@
     <ion-label>La lista de servicios esta vacia</ion-label>
    </ng-template>
 </ion-content>
+
+
 <ion-content padding *ngIf="user.details.session.services.length !== 0">
   <ion-title>ACTUALMENTE OFRECES</ion-title>
-  <ion-card *ngFor="let service of user.details.session.services">
+    <ion-card *ngFor="let service of user.details.session.services">
     <ion-grid>
       <ion-row>z
         <ion-col col-12>
-          <ion-row (click)='serviceDetail(service)'>
-            <ion-col col-4>
-              <img col-12 src="http://lorempixel.com/640/480/?94887"/>
+          <ion-row>
+            <ion-col col-4  (click)='serviceDetail(service)'>
+              <img col-12 src="http://lorempixel.com/320/160/?94887"/>
             </ion-col>
-            <ion-card-content>
-              <ion-card-title>
-                {{ service.name }}
-              </ion-card-title>
-            </ion-card-content>
+            <ion-col col-8>
+                  {{ service.name }}<br>
+                  Tipo: {{service.services_type_id}}<br>
+                  Precio: {{service.price}}<br>
+                  <button (click)="deleteService(service)">Eliminar</button>
+              </ion-col>
           </ion-row>
         </ion-col>
-
         </ion-row>
       </ion-grid>
   </ion-card>
+
+
   <button (click)="addService()"> Agregar un servicio</button>
   <ng-template [ngIf]="!action" [ngIfElse]="formCreate">
    <ion-label>La lista de servicios esta vacia</ion-label>
