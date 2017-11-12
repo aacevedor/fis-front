@@ -29,6 +29,7 @@
         "build": "^0.1.4",
         "cordova-android": "^6.2.3",
         "cordova-android-play-services-gradle-release": "^1.1.1",
+        "cordova-plugin-background-mode": "^0.7.2",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
         "cordova-plugin-googlemaps": "https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps",
@@ -65,7 +66,8 @@
             },
             "phonegap-plugin-push": {
                 "SENDER_ID": "658032209771"
-            }
+            },
+            "cordova-plugin-background-mode": {}
         },
         "platforms": [
             "android"
