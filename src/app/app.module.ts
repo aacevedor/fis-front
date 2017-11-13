@@ -19,7 +19,7 @@ import {
  // Marker
 } from '@ionic-native/google-maps';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
-
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { HomePage } from '../pages/index';
 import { detailPage } from '../pages/index';
@@ -33,6 +33,7 @@ import { ProfileService } from '../app/app.services';
 import { ProfesionalsService } from '../app/app.services';
 import { ApiService } from '../api/api.services';
 import { MyContracts } from  '../pages/my-contracts/my-contracts';
+import { ContractsList } from  '../pages/contracts/contracts';
 
 
 const cloudSettings: CloudSettings = {
@@ -62,7 +63,8 @@ const cloudSettings: CloudSettings = {
     ProfesionalsListPage,
     ServicesListPage,
     MyServices,
-    MyContracts
+    MyContracts,
+    ContractsList
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,8 @@ const cloudSettings: CloudSettings = {
     ProfesionalsListPage,
     ServicesListPage,
     MyServices,
-    MyContracts
+    MyContracts,
+    ContractsList
   ],
   providers: [
     StatusBar,
@@ -95,6 +98,7 @@ const cloudSettings: CloudSettings = {
     GoogleMaps,
     BackgroundMode,
     Push,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

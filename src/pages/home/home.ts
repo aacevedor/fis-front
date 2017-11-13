@@ -18,6 +18,7 @@ import { ProfesionalsPage } from '../index';
 import { detailPage, ProfilePage } from '../index';
 import { Platform, AlertController } from 'ionic-angular'
 import { Push, PushToken } from '@ionic/cloud-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 import { LoadingController } from 'ionic-angular';
@@ -29,10 +30,8 @@ import { LoadingController } from 'ionic-angular';
 })
 export class HomePage implements OnInit, AfterViewInit {
   @ViewChild(Nav) nav: Nav;
-
   pageTitle: string;
   pages: Array<{ title: string, component: any }>;
-
   profesionals : Profesional[];
   services : Service[];
   fristTime: boolean;
@@ -40,6 +39,8 @@ export class HomePage implements OnInit, AfterViewInit {
   token : any;
   loader: any;
   alert:  any;
+  longitude: any;
+  latitude: any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
@@ -49,10 +50,8 @@ export class HomePage implements OnInit, AfterViewInit {
               private push: Push,
               public ctrlAlert: AlertController,
               public loadingCtrl: LoadingController,
-              private alertCtrl: AlertController
-
-
-  ) {}
+              private alertCtrl: AlertController,
+              private geolocation:Geolocation) {}
 
 
   ngOnInit(){
@@ -60,7 +59,6 @@ export class HomePage implements OnInit, AfterViewInit {
       this.pageTitle = 'Inicio';
 
     });
-
   }
 
   ngAfterViewInit(){
@@ -69,18 +67,15 @@ export class HomePage implements OnInit, AfterViewInit {
           this.verificateProfile();
           this.getProfesionals();
           this.getServices();
-
-
     }else{this.navCtrl.push(LoginPage);}
   }
-
 
   getServices(): void {
     this.api.getServices()
     .subscribe(
       services => this.services = services,
       err => console.log(err),
-      /*() => console.log(this.services)*/
+      () => console.log('Servicios', this.services),
     )
   }
 
@@ -89,7 +84,7 @@ export class HomePage implements OnInit, AfterViewInit {
     .subscribe(
       profesionals => this.profesionals = profesionals,
       err => console.log(err),
-      () => console.log(this.profesionals)
+      () => console.log('Profesionales', this.profesionals)
     )
   }
 
@@ -112,8 +107,9 @@ export class HomePage implements OnInit, AfterViewInit {
               this.showAlert('Info', 'Para una mejor experiencia por favor completa la información de tu perfil' )
               this.navCtrl.push(ProfilePage);
             }
-            console.log(this.user);
+            console.log('Usuario',this.user);
             this.initPushNotification();
+            this.setGeolocalization(this.session.profile.id);
           }
     );
   }
@@ -126,20 +122,30 @@ export class HomePage implements OnInit, AfterViewInit {
         err    => console.log(err),
         ()     => { this.loader.dismiss(); this.showAlert('Info','Solicitud enviada.')  }
     );
+  }
 
+  setGeolocalization( id ) {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      // resp.coords.latitude
+      // resp.coords.longitude
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
+      //this.initAlert();
+      let params = { geolocalization: '['+ this.latitude +','+ this.longitude +']' }
+      this.api.setGeolocalization(params, id).subscribe(err => console.log(err) );
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
   initPushNotification(){
 
-       if( !this.platform.is('cordova')){
-           console.warn( "Para iniciar el plugin de notificaciones push, se debe emplear un dispositivo virtual o real" );
-           return;
-       }
+    if( !this.platform.is('cordova')){ console.warn( "Cordova not found" ); return; }
 
-      this.push.register().then((t: PushToken) => {
+    this.push.register().then((t: PushToken) => {
         return this.push.saveToken(t);
       }).then((t: PushToken) => {
-        console.log('Token saved:', t.token);
         this.token = t.token;
         let params = {
           user_id:this.session.id,
@@ -148,41 +154,37 @@ export class HomePage implements OnInit, AfterViewInit {
         this.api.saveToken( params ).subscribe( err => console.log(err) );
         //this.initAlert();
       });
-
-      this.push.rx.notification()
+    this.push.rx.notification()
       .subscribe((msg) => {
         alert(msg.title + ': ' + msg.text);
       });
-      this.loader.dismiss();
-    }
+    this.loader.dismiss();
+  }
 
+  initAlert() {
+    let alert = this.ctrlAlert.create({
+      title: '',
+      subTitle: 'longitude :'+ this.longitude +' - longitude' + this.latitude,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
-    initAlert() {
-      let alert = this.ctrlAlert.create({
-        title: '',
-        subTitle: 'Token :'+ this.token,
-        buttons: ['OK']
-      });
-      alert.present();
-    }
+  presentProcess(text) {
+    this.loader = this.loadingCtrl.create({
+      content: text,
+      duration: 3000
+    });
+    this.loader.present();
+  }
 
-
-    presentProcess(text) {
-      this.loader = this.loadingCtrl.create({
-        content: text,
-        duration: 3000
-      });
-      this.loader.present();
-    }
-
-    showAlert(type,text){
-      this.alert = this.alertCtrl.create({
-        title: type,
-        subTitle: text,
-        buttons: ['OK']
-      });
-
-      this.alert.present();
-    }
+  showAlert(type,text){
+    this.alert = this.alertCtrl.create({
+      title: type,
+      subTitle: text,
+      buttons: ['OK']
+    });
+    this.alert.present();
+  }
 
 }

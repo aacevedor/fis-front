@@ -49,7 +49,7 @@ export class ProfesionalsListPage implements OnInit{
   }
   getProfesionals(): void {
     this.presentProcess('Cargando...')
-    this.api.getProfesionals()
+    this.api.getProfesionalsList()
     .subscribe(
       profesionals => this.profesionals = profesionals,
       err => this.showAlert('Error','Error de conexion.'),

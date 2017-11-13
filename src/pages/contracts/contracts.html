@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>{{pageTitle}}</ion-title>
+    </ion-navbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="user.details.session.services.length !== 0">
+  <ion-title>Solicitudes Por Servicio</ion-title>
+  <ion-card *ngFor="let service of user.details.session.services">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-row >
+            <ion-col col-4 (click)='serviceDetail(service)'>
+              <img col-12 src="{{service.image}}"/>
+            </ion-col>
+            <ion-col col-8>
+                  {{ service.name }}<br>
+                  <ion-col col-12 *ngFor="let confirm of service.confirms">
+                    <ion-item>
+                      Cliente: {{confirm.user_id}}<br>
+                      Precio: {{confirm.price}}<br>
+                      Tiempo:
+                      <div style="color:#12add0" *ngIf="confirm.status_id === 1 ">
+                        Estado: Solicitado
+                      <button (click)="cancelService(confirm)">Rechazar</button>
+                      </div>
+                      <div style="color:#12d067" *ngIf="confirm.status_id === 2 ">
+                        Estado: Aceptado
+                      </div>
+                      <div style="color:#d6d026" *ngIf="confirm.status_id === 3 ">
+                        Estado: En proceso
+                      </div>
+                      <div style="color:#d66f26" *ngIf="confirm.status_id === 4 ">
+                        Estado: Terminado
+                      </div>
+                      <div style="color:#791dbf" *ngIf="confirm.status_id === 5 ">
+                        Estado: Aprobado
+                      </div>
+                      <div style="color:#ff0000" *ngIf="confirm.status_id === 6 ">
+                        Estado: Rechazado
+                      </div>
+                      <div style="color:#ff0000" *ngIf="confirm.status_id === 7 ">
+                        Estado: Cancelado
+                      </div>
+                    </ion-item>
+                  </ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-card>
+</ion-content>

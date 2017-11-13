@@ -19,10 +19,10 @@ import { HomePage } from '../home/home';
 //import { PROFILE } from '../../mocks/mock-profile';
 
 @Component({
-  selector: 'my-contracts',
-  templateUrl: 'my-contracts.html'
+  selector: 'contracts',
+  templateUrl: 'contracts.html'
 })
-export class MyContracts implements OnInit, AfterContentInit{
+export class ContractsList implements OnInit, AfterContentInit{
   contracts: Contracts;
   session: any;
   alert:  any;
@@ -61,6 +61,7 @@ export class MyContracts implements OnInit, AfterContentInit{
                 this.showAlert('Info', 'Aun no has contratado servicios');
               }
             }
+
             console.log(this.user);
           }
     );

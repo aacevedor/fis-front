@@ -10,14 +10,14 @@
 </ion-header>
 
 <ion-content padding *ngIf="user.details.session.services_confirm.length !== 0">
-  <ion-title>Mis Contratos</ion-title>
-  <ion-card *ngFor="let service of user.details.session.services_confirm">
+  <ion-title>Servicios Solicitados</ion-title>
+  <ion-card *ngFor="let service of user.details.session.services_confirm; let i = index">
     <ion-grid>
       <ion-row>
         <ion-col col-12>
           <ion-row >
             <ion-col col-4 (click)='serviceDetail(service)'>
-              <img col-12 src="http://lorempixel.com/330/250/?94887"/>
+              <img col-12 src="{{service.services.image}}"/>
             </ion-col>
             <ion-col col-8>
                   {{ service.services.name }}<br>

@@ -41,11 +41,11 @@ export class ServicesListPage implements OnInit{
     this.presentProcess('Cargando...');
     this.pageTitle = 'Servicios';
     this.getServices();
-  }
+  } 
 
 
   getServices(): void {
-    this.api.getServices()
+    this.api.getServicesList()
     .subscribe(
       services => this.services = services,
       err => console.log(err),

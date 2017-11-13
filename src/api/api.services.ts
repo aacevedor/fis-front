@@ -35,6 +35,11 @@ export class ApiService {
       .map(response => response.json())
   }
 
+  getProfesionalsList(): Observable<any> {
+    return this.http.get(ENV.APP_BACKEND + '/users-profile/provider')
+      .map(response => response.json())
+  }
+
   getProfesional( id: number ): Observable<any> {
     return this.http.get( ENV.APP_BACKEND + '/api/users/'+ id )
       .map( response => response.json() )
@@ -47,6 +52,11 @@ export class ApiService {
 
   getServices( ): Observable<any> {
     return this.http.get( ENV.APP_BACKEND + '/api/services' )
+      .map( response => response.json() )
+  }
+
+  getServicesList( ): Observable<any> {
+    return this.http.get( ENV.APP_BACKEND + '/services/all' )
       .map( response => response.json() )
   }
 
@@ -79,6 +89,12 @@ export class ApiService {
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(ENV.APP_BACKEND + '/api/push',  JSON.stringify( params ), {headers: headers} )
       .map(response => response.json);
+  }
+
+  setGeolocalization( params: any, id: number ): Observable<any> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.put( ENV.APP_BACKEND + '/api/users-profile/' + id, JSON.stringify( params ), {headers: headers} )
+      .map (response => response.json());
   }
 
   createProfesionalProfile( params: any ): Observable<any> {

@@ -11,6 +11,8 @@ import { ProfesionalsListPage, ServicesListPage } from '../pages/index';
 import { ApiService } from '../api/api.services';
 import { MyServices } from  '../pages/my-services/my-services';
 import { MyContracts } from  '../pages/my-contracts/my-contracts';
+import { ContractsList } from  '../pages/contracts/contracts';
+
 //import { Push } from '@ionic/cloud-angular';
 import { Auth,
          User,
@@ -45,7 +47,6 @@ export class MyApp implements OnInit{
               {  }
 
   ngOnInit(){
-
     this.presentProcess('Iniciando');
     this.ready= false;
     this.initializeApp();
@@ -55,12 +56,8 @@ export class MyApp implements OnInit{
        { title: 'Servicios', component: ServicesListPage },
        { title: 'Prestadores', component: ProfesionalsListPage },
        { title: 'Mis Contrataciones', component: MyContracts },
-       // validar si debe aparecer
-
      ];
-
      this.pages.push({ title: 'Logout', component: LogoutPage });
-
   }
 
   initializeApp() {
@@ -76,7 +73,6 @@ export class MyApp implements OnInit{
                 hidden: false,
                 bigText: false
             });
-            console.log('Iniciando BackgroundMode');
             this.backgroundMode.enable();
             }
            this.api.confirmationProfesional( this.user.id )
@@ -84,26 +80,19 @@ export class MyApp implements OnInit{
               session => this.session = session,
               err     => console.log( err ),
               ()      => {
-                  console.log(this.session);
                  if(this.session.roles.id === 3) {
-                   this.pages.push({ title: 'Mis Contratos', component: ProfilePage });
+                   this.pages.push({ title: 'Mis Contratos', component: ContractsList });
                    this.pages.push({ title: 'Mis Servicios', component: MyServices },);
                  }
-
                 this.statusBar.styleDefault();
                 this.splashScreen.hide();
                 this.ready = true;
             }
-           )
+          )
       }
-
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.loader.dismiss();
-
-
-
-
     });
   }
 
@@ -111,7 +100,6 @@ export class MyApp implements OnInit{
      // Reset the content nav to have just this page
      // we wouldn't want the back button to show in this scenario
      this.nav.setRoot(page.component);
-
    }
 
    presentProcess(text) {
