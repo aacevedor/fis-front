@@ -11,14 +11,12 @@ import { ProfesionalsListPage, ServicesListPage } from '../pages/index';
 import { ApiService } from '../api/api.services';
 import { MyServices } from  '../pages/my-services/my-services';
 import { MyContracts } from  '../pages/my-contracts/my-contracts';
-import {
-  Push
-} from '@ionic/cloud-angular';
+//import { Push } from '@ionic/cloud-angular';
 import { Auth,
          User,
 } from '@ionic/cloud-angular';
 import { LoadingController } from 'ionic-angular';
-
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 
 
@@ -34,17 +32,20 @@ export class MyApp implements OnInit{
   ready: boolean;
   loader: any;
 
-  constructor(public platform: Platform,  public statusBar: StatusBar, public splashScreen: SplashScreen, public push: Push, public ctrlAlert: AlertController,
+  constructor(public platform: Platform,  public statusBar: StatusBar, public splashScreen: SplashScreen,  public ctrlAlert: AlertController,
               public api: ApiService,
               public user: User,
               public auth: Auth,
-              public loadingCtrl: LoadingController
+              public loadingCtrl: LoadingController,
+              private backgroundMode: BackgroundMode,
+              //public push: Push
 
             )
 
               {  }
 
   ngOnInit(){
+
     this.presentProcess('Iniciando');
     this.ready= false;
     this.initializeApp();
@@ -65,6 +66,19 @@ export class MyApp implements OnInit{
   initializeApp() {
     this.platform.ready().then(() => {
       if ( this.auth.isAuthenticated() ) {
+         if( !this.backgroundMode.isEnabled()){
+              this.backgroundMode.setDefaults({
+                title: 'Aplicacion corriendo',
+                text: 'Se encuentra en segundo plano',
+                icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
+                color: 'F14F4D', // hex format like 'F14F4D'
+                resume: true,
+                hidden: false,
+                bigText: false
+            });
+            console.log('Iniciando BackgroundMode');
+            this.backgroundMode.enable();
+            }
            this.api.confirmationProfesional( this.user.id )
             .subscribe(
               session => this.session = session,
@@ -86,6 +100,10 @@ export class MyApp implements OnInit{
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.loader.dismiss();
+
+
+
+
     });
   }
 

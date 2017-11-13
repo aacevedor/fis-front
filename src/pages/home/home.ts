@@ -18,6 +18,8 @@ import { ProfesionalsPage } from '../index';
 import { detailPage, ProfilePage } from '../index';
 import { Platform, AlertController } from 'ionic-angular'
 import { Push, PushToken } from '@ionic/cloud-angular';
+
+
 import { LoadingController } from 'ionic-angular';
 
 
@@ -44,7 +46,7 @@ export class HomePage implements OnInit, AfterViewInit {
               public user: User,
               public auth: Auth,
               public platform: Platform,
-              public push: Push,
+              private push: Push,
               public ctrlAlert: AlertController,
               public loadingCtrl: LoadingController,
               private alertCtrl: AlertController
@@ -67,7 +69,7 @@ export class HomePage implements OnInit, AfterViewInit {
           this.verificateProfile();
           this.getProfesionals();
           this.getServices();
-          this.initPushNotification();
+
 
     }else{this.navCtrl.push(LoginPage);}
   }
@@ -111,6 +113,7 @@ export class HomePage implements OnInit, AfterViewInit {
               this.navCtrl.push(ProfilePage);
             }
             console.log(this.user);
+            this.initPushNotification();
           }
     );
   }
@@ -127,16 +130,22 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   initPushNotification(){
-      if( !this.platform.is('cordova')){
-          console.warn( "Para iniciar el plugin de notificaciones push, se debe emplear un dispositivo virtual o real" );
-          return;
-      }
+
+       if( !this.platform.is('cordova')){
+           console.warn( "Para iniciar el plugin de notificaciones push, se debe emplear un dispositivo virtual o real" );
+           return;
+       }
 
       this.push.register().then((t: PushToken) => {
         return this.push.saveToken(t);
       }).then((t: PushToken) => {
         console.log('Token saved:', t.token);
         this.token = t.token;
+        let params = {
+          user_id:this.session.id,
+          ionic_token: this.token,
+        }
+        this.api.saveToken( params ).subscribe( err => console.log(err) );
         //this.initAlert();
       });
 

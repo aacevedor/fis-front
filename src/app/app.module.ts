@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
-
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/index'
 import {
@@ -18,6 +18,8 @@ import {
  // MarkerOptions,
  // Marker
 } from '@ionic-native/google-maps';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
+
 
 import { HomePage } from '../pages/index';
 import { detailPage } from '../pages/index';
@@ -91,6 +93,8 @@ const cloudSettings: CloudSettings = {
     ProfesionalsService,
     ApiService,
     GoogleMaps,
+    BackgroundMode,
+    Push,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

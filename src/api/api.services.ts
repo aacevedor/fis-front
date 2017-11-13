@@ -75,6 +75,11 @@ export class ApiService {
       .map (response => response.json())
   }
 
+  saveToken( params: any ): Observable<any> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(ENV.APP_BACKEND + '/api/push',  JSON.stringify( params ), {headers: headers} )
+      .map(response => response.json);
+  }
 
   createProfesionalProfile( params: any ): Observable<any> {
     let id = params.id;
@@ -112,7 +117,7 @@ export class ApiService {
       service_id: service.id,
       price: service.price,
       service_time: 1,
-      total_price: 2000,
+      total_price: service.price,
       request_date: now.toISOString().slice(0,19).replace('T',' '),
       delivery_date:'2017-11-07 10:52:53',
       status_id:1,
