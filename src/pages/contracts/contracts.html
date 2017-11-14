@@ -27,14 +27,17 @@
                       Precio: {{confirm.price}}<br>
                       Tiempo:
                       <div style="color:#12add0" *ngIf="confirm.status_id === 1 ">
-                        Estado: Solicitado
-                      <button (click)="cancelService(confirm)">Rechazar</button>
+                        Estado: Solicitado<br>
+                        <button (click)="ChangeStatusService(confirm, 6)">Rechazar</button>
+                        <button (click)="ChangeStatusService(confirm, 2)">Aceptar</button>
                       </div>
                       <div style="color:#12d067" *ngIf="confirm.status_id === 2 ">
-                        Estado: Aceptado
+                        Estado: Aceptado<br>
+                        <button (click)="ChangeStatusService(confirm, 3)">Iniciar</button>
                       </div>
                       <div style="color:#d6d026" *ngIf="confirm.status_id === 3 ">
-                        Estado: En proceso
+                        Estado: En proceso<br>
+                        <button (click)="ChangeStatusService(confirm, 4)">Terminar</button>
                       </div>
                       <div style="color:#d66f26" *ngIf="confirm.status_id === 4 ">
                         Estado: Terminado

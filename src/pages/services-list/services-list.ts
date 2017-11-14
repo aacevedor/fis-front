@@ -24,6 +24,7 @@ export class ServicesListPage implements OnInit{
   services : Service[];
   loader: any;
   alert:  any;
+  session: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,7 +42,8 @@ export class ServicesListPage implements OnInit{
     this.presentProcess('Cargando...');
     this.pageTitle = 'Servicios';
     this.getServices();
-  } 
+    this.verificateProfile();
+  }
 
 
   getServices(): void {
@@ -65,6 +67,17 @@ export class ServicesListPage implements OnInit{
         success => {},
         err    => console.log(err),
         ()     => { this.loader.dismiss(); this.showAlert('Info','Solicitud enviada.')  }
+    );
+  }
+
+  verificateProfile(): void{
+    this.api.confirmationProfesional(this.user.id)
+    .subscribe(
+      profile => this.session = profile,
+      err => console.log(err),
+      () => {
+            Object.defineProperty(this.user.details, 'session', {value:this.session, enumerable: true}) ;
+          }
     );
   }
 

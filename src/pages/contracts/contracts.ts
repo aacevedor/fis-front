@@ -68,9 +68,9 @@ export class ContractsList implements OnInit, AfterContentInit{
   }
 
 
-  cancelService(service): void {
+  ChangeStatusService(service: Service, status: number): void {
     this.service_cancel = service;
-    this.cancelAlert('Alerta','Desea continuar');
+    this.cancelAlert('Alerta', 'Desea continuar', status);
   }
 
   showAlert(type,text){
@@ -100,7 +100,7 @@ export class ContractsList implements OnInit, AfterContentInit{
     this.alert.present();
   }
 
-  cancelAlert(type,text){
+  cancelAlert(type, text, status){
     this.alert = this.ctrlAlert.create({
       title: type,
       subTitle: text,
@@ -112,7 +112,7 @@ export class ContractsList implements OnInit, AfterContentInit{
       {
         text:'OK',
         handler: () => {
-          this.service_cancel.status_id = 7; // servicio cancelado
+          this.service_cancel.status_id = status; // servicio cancelado
           let params = {
               status_id: this.service_cancel.status_id
           }

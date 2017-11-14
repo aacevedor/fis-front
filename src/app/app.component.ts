@@ -55,7 +55,7 @@ export class MyApp implements OnInit{
        { title: 'Mi Perfil', component: ProfilePage },
        { title: 'Servicios', component: ServicesListPage },
        { title: 'Prestadores', component: ProfesionalsListPage },
-       { title: 'Mis Contrataciones', component: MyContracts },
+       { title: 'S. Contratados', component: MyContracts },
      ];
      this.pages.push({ title: 'Logout', component: LogoutPage });
   }
@@ -81,8 +81,8 @@ export class MyApp implements OnInit{
               err     => console.log( err ),
               ()      => {
                  if(this.session.roles.id === 3) {
-                   this.pages.push({ title: 'Mis Contratos', component: ContractsList });
-                   this.pages.push({ title: 'Mis Servicios', component: MyServices },);
+                   this.pages.push({ title: 'Mis Obligaciones', component: ContractsList });
+                   this.pages.push({ title: '¿Que ofresco?', component: MyServices },);
                  }
                 this.statusBar.styleDefault();
                 this.splashScreen.hide();

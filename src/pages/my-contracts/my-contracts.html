@@ -1,3 +1,5 @@
+<!--Servicios contradados como contratante-->
+
 <ion-header>
   <ion-navbar>
     <ion-navbar>
@@ -24,8 +26,8 @@
                   Solicitado: {{service.request_date}}<br>
                   Total: {{service.total_price}}<br>
                   <div style="color:#12add0" *ngIf="service.status_id === 1 ">
-                    Estado: Solicitado
-                  <button (click)="cancelService(service)">Cancelar</button>
+                    Estado: Solicitado<br>
+                    <button (click)="ChangeStatusService(service,7)">Cancelar</button>
                   </div>
                   <div style="color:#12d067" *ngIf="service.status_id === 2 ">
                     Estado: Aceptado
@@ -34,7 +36,8 @@
                     Estado: En proceso
                   </div>
                   <div style="color:#d66f26" *ngIf="service.status_id === 4 ">
-                    Estado: Terminado
+                    Estado: Terminado<br>
+                    <button (click)="ChangeStatusService(service,5)">Aprobar</button>
                   </div>
                   <div style="color:#791dbf" *ngIf="service.status_id === 5 ">
                     Estado: Aprobado

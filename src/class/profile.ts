@@ -46,7 +46,6 @@ export class Profesional {
 
 export class Service{
 
-
     id : number;
     name: string;
     services_type_id : number;
@@ -57,6 +56,7 @@ export class Service{
     updated_at: string;
     user : Profesional;
     status_id: number;
+    comments: any;
 }
 
 export class Contracts{
@@ -71,4 +71,10 @@ export class Contracts{
     created_at: string;
     updated_at: string;
 
+}
+
+export class Comment {
+  service_id: number;
+  user_id: number;
+  description: string;
 }

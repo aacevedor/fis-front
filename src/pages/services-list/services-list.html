@@ -30,12 +30,12 @@
 
 
   <ion-card *ngFor="let service of services" >
-    <ion-grid>
+    <ion-grid *ngIf="service.user_id != user.details.session?.id">
       <ion-row>
         <ion-col col-12 (click)='serviceDetail(service)'>
           <ion-row>
             <ion-col col-4>
-              <img col-12 src="http://lorempixel.com/640/480/?94887"/>
+              <img col-12 src="{{service.image}}"/>
             </ion-col>
             <ion-col col-8>
               <ion-item>

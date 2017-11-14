@@ -27,7 +27,7 @@ export class ProfesionalsListPage implements OnInit{
   services : Service[];
   loader: any;
   alert: any;
-
+  session: any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public api: ApiService,
@@ -46,6 +46,7 @@ export class ProfesionalsListPage implements OnInit{
 
     this.pageTitle = 'Lista de profesionales';
     this.getProfesionals();
+    this.verificateProfile();
   }
   getProfesionals(): void {
     this.presentProcess('Cargando...')
@@ -55,6 +56,17 @@ export class ProfesionalsListPage implements OnInit{
       err => this.showAlert('Error','Error de conexion.'),
       () => { console.log(this.profesionals); this.loader.dismiss() }
     )
+  }
+
+  verificateProfile(): void{
+    this.api.confirmationProfesional(this.user.id)
+    .subscribe(
+      profile => this.session = profile,
+      err => console.log(err),
+      () => {
+            Object.defineProperty(this.user.details, 'session', {value:this.session, enumerable: true}) ;
+          }
+    );
   }
 
   profesionalDetail( profesional: Profesional ): void {

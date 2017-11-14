@@ -30,7 +30,7 @@
 
 
   <ion-card *ngFor="let service of services">
-    <ion-grid>
+    <ion-grid *ngIf="service.user_id != user.details.session?.id ">
       <ion-row>
         <ion-col col-12>
           <ion-row (click)='serviceDetail(service)'>

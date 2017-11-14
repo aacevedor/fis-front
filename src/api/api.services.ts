@@ -153,4 +153,11 @@ export class ApiService {
        .map (response => response.json());
   }
 
+  createComment(comment: any){
+    let headers = new Headers( {'Content-Type': 'application/json'} );
+    console.log(JSON.stringify(comment));
+    return this.http.post( ENV.APP_BACKEND + '/api/services-comments', JSON.stringify(comment), {headers:headers} )
+      .map( response => response.json() )
+  }
+
 }

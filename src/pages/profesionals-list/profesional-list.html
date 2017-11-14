@@ -27,7 +27,7 @@
       </ion-grid>
     </ion-card>
     <ion-card *ngFor="let profesional of profesionals" (click)='profesionalDetail(profesional)'>
-      <ion-grid>
+      <ion-grid *ngIf="profesional.id != user.details.session?.id">
         <ion-row>
           <ion-col col-12>
             <ion-row>
