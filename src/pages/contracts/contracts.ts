@@ -121,7 +121,7 @@ export class ContractsList implements OnInit, AfterContentInit{
           .subscribe(
             success => { console.log(success) },
             err     => console.log( err ),//this.showAlert('Error','Se ha presentado un error, intentelo nuevamente'),
-            ()      => this.confirmAlert('Info','El servicio ha sido cancelado'),
+            ()      => this.confirmAlert('Info','Actualizado'),
           );
         }
       }]

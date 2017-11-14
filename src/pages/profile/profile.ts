@@ -74,7 +74,7 @@ export class ProfilePage implements OnInit{
     this.api.createProfesionalProfile(  this.session.profile )
       .subscribe(
           result => this.update = result,
-          err    => this.showAlert('Error','Error de conexion, intentelo nuevamente'),
+          err    => this.showAlert('Error','Todos los campos son obligatorios'),
           ()     => { this.loader.dismiss(); this.navCtrl.setRoot(HomePage);}
       );
   }
