@@ -2,17 +2,14 @@ import {
     Component,
     OnInit,
     AfterContentInit,
-    Input,
-  } from '@angular/core';
+      } from '@angular/core';
 import { NavController , NavParams} from 'ionic-angular';
 import { Auth, User, IDetailedError } from '@ionic/cloud-angular';
 import { Platform, AlertController } from 'ionic-angular';
-
-import { ValidationService } from '../../services/index';
 import { Authorization } from '../../class/profile';
 import { HomePage } from '../index';
 import { RegisterPage } from '../register/register';
-import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 //import { PROFILE } from '../../mocks/mock-profile';
 import {
   Push,

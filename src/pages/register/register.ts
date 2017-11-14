@@ -43,7 +43,6 @@ export class RegisterPage {
           this.navCtrl.push(LoginPage);
       },
       (err: IDetailedError<string[]>) => {
-        for (let e of err.details) {
           for (let e of err.details) {
             if ( e === 'conflict_username') {
               alert('Apodo ya existe');
@@ -60,7 +59,6 @@ export class RegisterPage {
             if ( e === 'required_password') {
               alert('La contraseña es obligatoria');
             }
-          }
         }
       });
     }

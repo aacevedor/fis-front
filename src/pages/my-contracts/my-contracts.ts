@@ -122,10 +122,11 @@ export class MyContracts implements OnInit, AfterContentInit{
           .subscribe(
             success => { console.log(success) },
             err     => console.log( err ),//this.showAlert('Error','Se ha presentado un error, intentelo nuevamente'),
-            ()      => { this.confirmAlert('Info','Actualizado');
-                         if( this.service_cancel.status_id === 5 ) {
-                            this.saveComment();
-                         }
+            ()      => {
+                          if( this.service_cancel.status_id === 5 ) {
+                             this.saveComment();
+                          }
+                          this.confirmAlert('Info','Actualizado');
                      }
           );
         }

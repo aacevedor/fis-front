@@ -19,8 +19,6 @@ import { detailPage, ProfilePage } from '../index';
 import { Platform, AlertController } from 'ionic-angular'
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-
-
 import { LoadingController } from 'ionic-angular';
 
 
@@ -48,7 +46,6 @@ export class HomePage implements OnInit, AfterViewInit {
               public auth: Auth,
               public platform: Platform,
               private push: Push,
-              public ctrlAlert: AlertController,
               public loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
               private geolocation:Geolocation) {}
@@ -155,16 +152,16 @@ export class HomePage implements OnInit, AfterViewInit {
         //this.initAlert();
       });
     this.push.rx.notification()
-      .subscribe((msg) => {
-        alert(msg.title + ': ' + msg.text);
-      });
-    this.loader.dismiss();
+      .subscribe(
+        msg => {this.initAlert(msg)}
+      );
+      this.loader.dismiss();
   }
 
-  initAlert() {
-    let alert = this.ctrlAlert.create({
-      title: '',
-      subTitle: 'longitude :'+ this.longitude +' - longitude' + this.latitude,
+  initAlert(msg) {
+    let alert = this.alertCtrl.create({
+      title: msg.title,
+      subTitle: msg.text,
       buttons: ['OK']
     });
     alert.present();

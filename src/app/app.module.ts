@@ -18,7 +18,7 @@ import {
  // MarkerOptions,
  // Marker
 } from '@ionic-native/google-maps';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { Push } from '@ionic-native/push';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { HomePage } from '../pages/index';
