@@ -75,28 +75,4 @@ export class LoginPage implements OnInit, AfterContentInit{
         alert('usuario y contraseña no coinciden');
       });
    }
- }
-
-
-@Component({
-  selector:'control-messages',
-  template:'<div *ngIf="errorMessages !== null">{{ errorMessage }}</div>'
-})
-export class ControlMessages{
-  errorMessage: string;
-  @Input() control: FormControl;
-  constructor(){}
-
-
-  get errorMessages() {
-    for(let propertyName in this.control.errors ){
-      if(this.control.errors.hasProperty(propertyName) && this.control.touched ){
-        return ValidationService.getValidatorsErrorMessage( propertyName, this.control.errors[propertyName])
-      }
-    }
-
-    return null
-  }
-
-
 }

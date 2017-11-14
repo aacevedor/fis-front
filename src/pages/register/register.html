@@ -12,6 +12,11 @@
     <ion-list margin >
       <form (ngSubmit)="onSubmit()" [formGroup]="form">
         <ion-item>
+          <ion-label color="primary" floating>Apodo</ion-label>
+          <ion-input type="text" formControlName="username" required></ion-input>
+          <!--<control-messages [control]="user.controls.password"></control-messages>-->
+        </ion-item>
+        <ion-item>
           <ion-label color="primary" floating>Nombre Completo</ion-label>
           <ion-input tyle="text"  formControlName="name" required></ion-input>
           <!--<control-messages [control]="user.controls.email"></control-messages>-->
@@ -24,11 +29,6 @@
         <ion-item>
           <ion-label color="primary" floating>Contraseña</ion-label>
           <ion-input type="password" formControlName="password" required></ion-input>
-          <!--<control-messages [control]="user.controls.password"></control-messages>-->
-        </ion-item>
-        <ion-item>
-          <ion-label color="primary" floating>Nick</ion-label>
-          <ion-input type="text" formControlName="username" required></ion-input>
           <!--<control-messages [control]="user.controls.password"></control-messages>-->
         </ion-item>
         <div text-center margin>

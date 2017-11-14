@@ -44,14 +44,22 @@ export class RegisterPage {
       },
       (err: IDetailedError<string[]>) => {
         for (let e of err.details) {
-          if (e === 'conflict_email') {
-            alert('La dirección de correo ya existe.');
-          }
-          else if( e === 'invalid_email'){
-            alert('Por favor suministre un email valido');
-          }
-          else {
-            alert('Hubo un error por favor intentelo mas tarde');
+          for (let e of err.details) {
+            if ( e === 'conflict_username') {
+              alert('Apodo ya existe');
+            }
+            if (e === 'conflict_email') {
+              alert('Email ya existe');
+            }
+            if ( e === 'invalid_email') {
+              alert('El correo no es valido');
+            }
+            if ( e === 'required_email') {
+              alert('El correo es obligatorio');
+            }
+            if ( e === 'required_password') {
+              alert('La contraseña es obligatoria');
+            }
           }
         }
       });

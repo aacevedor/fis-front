@@ -11,6 +11,8 @@ import { HomePage } from '../home/home';
 import { Profesional } from '../../class/profile';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+
 
 
 @Component({
@@ -20,6 +22,7 @@ import { AlertController } from 'ionic-angular';
 export class ProfilePage implements OnInit{
 
   profile: Profesional;
+  form: FormGroup;
   success: any;
   session: any;
   update: any;
@@ -31,7 +34,8 @@ export class ProfilePage implements OnInit{
               public api: ApiService,
               public http:Http,
               public loadingCtrl: LoadingController,
-              private alertCtrl: AlertController
+              private alertCtrl: AlertController,
+              private formBuilder:FormBuilder,
               ) {
 
 
@@ -39,6 +43,16 @@ export class ProfilePage implements OnInit{
 
   ngOnInit(): void {
     this.userSync();
+    this.form = this.formBuilder.group({
+      first_name:['', Validators.required],
+      last_name:['',Validators.required],
+      description:['',Validators.required],
+      city_id:['',Validators.required],
+      gender:['',Validators.required],
+      profession:['',Validators.required],
+      address:['',Validators.required]
+    });
+
   }
 
   userSync():void {
@@ -64,17 +78,33 @@ export class ProfilePage implements OnInit{
     .subscribe(
       session => this.session = session,
       err     => console.log( err ),
-      ()      => { this.loader.dismiss();}
-
+      ()      => {
+        console.log(this.session);
+        this.form.controls.first_name.setValue( this.session.profile.first_name);
+        this.form.controls.last_name.setValue( this.session.profile.last_name);
+        this.form.controls.address.setValue( this.session.profile.address);
+        this.form.controls.description.setValue( this.session.profile.description);
+        this.form.controls.city_id.setValue( this.session.profile.city_id);
+        this.form.controls.gender.setValue( this.session.profile.gender);
+        this.form.controls.profession.setValue( this.session.profile.profession,  );
+        this.loader.dismiss();}
     )
   }
 
-  save(): void {
+  onSubmit(): void {
+    this.session.profile.first_name = this.form.value.first_name;
+    this.session.profile.last_name = this.form.value.last_name;
+    this.session.profile.address = this.form.value.address;
+    this.session.profile.description = this.form.value.description;
+    this.session.profile.city_id = this.form.value.city_id;
+    this.session.profile.gender = this.form.value.gender;
+    this.session.profile.profession = this.form.value.profession;
+
     this.presentProcess('Guardando...');
     this.api.createProfesionalProfile(  this.session.profile )
       .subscribe(
           result => this.update = result,
-          err    => this.showAlert('Error','Todos los campos son obligatorios'),
+          err    => this.showAlert('Error',''),
           ()     => { this.loader.dismiss(); this.navCtrl.setRoot(HomePage);}
       );
   }

@@ -23,7 +23,7 @@
         </p>
       </ion-card-content>
     </ion-row>
-    <ion-row *ngIf="session?.profile?.id">
+    <!--<ion-row *ngIf="session?.profile?.id">
       <ion-list col-12 >
         <ion-item col-12>
           <ion-label col-12>Fecha de registro: {{ session?.created_at }}</ion-label>
@@ -86,14 +86,78 @@
             <button ion-button>Tomar Foto</button>
           </ion-select>
         </ion-item>
-
-
       </ion-list>
       <button ion-button (click)="save()">Guardar</button>
+    </ion-row>-->
+
+    <ion-row *ngIf="session?.profile?.id">
+      <ion-list col-12 >
+        <ion-item col-12>
+          <ion-label col-12>Fecha de registro: {{ session?.created_at }}</ion-label>
+        </ion-item>
+        <form (ngSubmit)="onSubmit()" [formGroup]="form">
+          <ion-item col-12>
+            <ion-label >Nombres</ion-label>
+              <ion-input type="text"  formControlName="first_name" required></ion-input>
+          </ion-item>
+
+          <ion-item col-12>
+            <ion-label >Apellidos</ion-label>
+            <ion-input  type="text"  formControlName="last_name" placeholder=""></ion-input>
+          </ion-item>
+
+          <ion-item col-12>
+            <ion-label >Descripción de mi perfil</ion-label>
+            <ion-input type="text"  formControlName="description" placeholder=""></ion-input>
+          </ion-item>
+
+          <ion-item col-12>
+            <ion-label >Ciudad</ion-label>
+            <ion-select type="text"  formControlName="city_id" >
+              <ion-option value="1">Bogotá</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item col-12>
+            <ion-label >Genero</ion-label>
+            <ion-select type="text"  formControlName="gender">
+              <ion-option value="male">Masculino</ion-option>
+              <ion-option value="female">Femenino</ion-option>
+              <ion-option value="others">Otros</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item col-12>
+            <ion-label >Profesion</ion-label>
+            <ion-select type="text"  formControlName="profession">
+              <ion-option value="Lavador">Lavador</ion-option>
+              <ion-option value="Barredor">Barredor</ion-option>
+              <ion-option value="Ingeniero">Ingeniero</ion-option>
+              <ion-option value="Diseñador">Diseñador</ion-option>
+              <ion-option value="Electricista">Electricista</ion-option>
+              <ion-option value="Mecanico">Mecanico</ion-option>
+              <ion-option value="Mascotas">Mascotas</ion-option>
+              <ion-option value="Merihuanero">Merihuanero</ion-option>
+              <ion-option value="Periquero">Periquero</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item col-12>
+            <ion-label >Dirección</ion-label>
+            <ion-input  type="text"  formControlName="address"></ion-input>
+          </ion-item>
+          <button ion-button [disabled]="!form.valid">Guardar</button>
+        </form>
+      <!--  <ion-item col-12>
+          <ion-label >Imagen de perfil</ion-label>
+          <ion-select [(ngModel)]="session.profile.image">
+            <button ion-button>Tomar Foto</button>
+          </ion-select>
+        </ion-item>-->
+      </ion-list>
     </ion-row>
     <ion-row *ngIf="session?.roles" >
       <button ion-button *ngIf="session?.roles.id === 2" (click)="changeRole()">Deseo prestar un servicio</button>
     </ion-row>
-
   </ion-grid>
 </ion-content>
